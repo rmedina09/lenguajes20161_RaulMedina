@@ -255,13 +255,20 @@
     [(= (mlong l) long-set) (genera long-set l)]
     [(> (mlong l) long-set) (append (genera long-set l) (msubsets long-set (cdr l)))]))
 
-;; genera
+;; genera: number listof-values --> listof-values
+;; Dado un número entero positivo y una lista de elementos regresa
+;; una lista de subconjuntos con todas las posibles combinaciones con 
+;; la cabeza de la lista tal que la longitud estadeterminada por el 
+;; número dado
 (define (genera l-subset l)
   (cond
     [(< (mlong l) l-subset) '()]
     [(= l-subset 1) (cons (list (car l)) (genera l-subset (cdr l)))]
     [else (cons (tupla l-subset l) (genera l-subset (cons (car l) (cddr l))))]))
 
+;; tupla: number listof-values --> listof-values
+;; Dado un número y una lista de elementos regresa una lista con los 
+;; primeros n elementos , donde n esta determinada por el número dado
 (define (tupla l-subset l)
   (cond 
     [(<= l-subset 0) '()]
