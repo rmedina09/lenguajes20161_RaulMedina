@@ -229,24 +229,33 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Ejercicio 11
-;; mpowerset: 
+;; mpowerset: listof-values --> listof-values
+;; Toma una lista de elementos y regresa su conjunto potencia
 (define (mpowerset l)
   (cond 
     [(empty? l) (list '())]
     [else (append (list '()) (mpowerset-aux 1 l))]))
 
+;; mpowerset-aux: number listof-values --> listof-values
+;; Dada una lista de elementos y un número entero positivo regresa 
+;; una lista de subconjuntos a partir de una cierta longitud determinada 
+;; por el número dado como argumento
 (define (mpowerset-aux long-set l)
   (cond     
     [(= long-set (mlong l)) (msubsets long-set l)]
     [(< long-set (mlong l)) (append (msubsets long-set l) (mpowerset-aux (add1 long-set) l))]))
 
+;; msubsets: number listof-values --> listof-values
+;; Dado un número entero positivo y una lista de elementos regresa una 
+;; lista con todos los posibles subconjuntos de una longitud determinada
+;; por el número dado
 (define (msubsets long-set l)
   (cond 
     [(= long-set 1) (genera 1 l)]
     [(= (mlong l) long-set) (genera long-set l)]
     [(> (mlong l) long-set) (append (genera long-set l) (msubsets long-set (cdr l)))]))
 
-
+;; genera
 (define (genera l-subset l)
   (cond
     [(< (mlong l) l-subset) '()]
