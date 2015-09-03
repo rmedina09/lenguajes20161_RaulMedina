@@ -120,13 +120,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;MPOWERSET
 
-(define (mpowerset l) 
-  (mpowerset-aux 1 l))
-
-(define (mpowerset-aux long-set l)
+(define (mpowerset l)
   (cond 
     [(empty? l) (list '())]
-    [else (append (list '()) (msubsets long-set l) (mpowerset-aux (add1 long-set) l))]))
+    [else (append (list '()) (mpowerset-aux 1 l))]))
+
+(define (mpowerset-aux long-set l)
+  (cond     
+    [(= long-set (mlong l)) (msubsets long-set l)]
+    [(< long-set (mlong l)) (append (msubsets long-set l) (mpowerset-aux (add1 long-set) l))]))
 
 (define (msubsets long-set l)
   (cond 
