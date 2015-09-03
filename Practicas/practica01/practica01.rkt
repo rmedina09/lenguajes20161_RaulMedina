@@ -1,6 +1,8 @@
 #lang plai
-;1
 
+;; Ejercicio 1
+;; mpow: number number --> number 
+;; Eleva un número a una cierta potencia (segundo argumento)
 (define (mpow a n)
   (cond 
     [(and (zero? a) (zero? n)) "valor indefinido"]
@@ -14,18 +16,26 @@
 ;(test (mpow 2 8) 256)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;2 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Ejercicio 2
+;; maverage: list-of numbers --> number 
+;; Toma una lista de números y obtiene el promedio de esta lista
 (define (maverage l)
   (cond
     [(empty? l) 0]
     [else (/ (addElems l) (mlong l))]))
 
+;; mlong: listof-values --> number 
+;; Toma una lista de elementos y regresa la cantidad de elementos
 (define (mlong l)
   (cond 
     [(empty? l) 0]
     [else (+ 1 (mlong (cdr l)))]))
 
+;; addElems: listof-numbers --> number 
+;; Toma una lista de números y regresa la suma de 
+;; todos los elementos
 (define (addElems l)
   (cond 
     [(empty? l) 0]
@@ -39,8 +49,12 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;3- MPRIMES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Ejercicio 3
+;; mprimes: number --> listof-numbers 
+;; Dado un número entero positivo regresa una lista de números
+;; primos entre el 2 y el número dado
 (define (mprimes n) 
   (cond 
     [(= n 1) '()]
@@ -48,9 +62,15 @@
          (append (mprimes (sub1 n)) (list n))
          (mprimes (sub1 n)))]))
 
+;; isprime?: number --> boolean 
+;; Dado un número entero positivo mayor o igual a 2 determina
+;; si es un número primo
 (define (isprime? n)
   (isprime2? 2 n))
 
+;; isprime2? number number --> boolean
+;; Dado un número entero determina si entre un número k (menor a n)
+;; y n existe un número que divida a n
 (define (isprime2? k n) 
   (cond
     [(<= n 1) #f]
@@ -66,8 +86,12 @@
 ;(test (mprimes 33) '(2 3 5 7 11 13 17 19 23 29 31))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;4-ZIP
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Ejercicio 4
+;; mzip: listof-values listof-values --> listof-values 
+;; Dadas dos listas de elementos empareja uno a uno los elementos
+;; de una lista con la otra lista, regresando una lista de parejas
 (define (mzip l1 l2)
   (cond 
     [(or (empty? l1) (empty? l2)) '()]
@@ -82,8 +106,11 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;5-REDUCE
 
+;; Ejercicio 5
+;; mreduce: function listof-values --> listof-values 
+;; Dada una función de aridad dos  y una lista de elementos, devuelve 
+;; la evaluación de la función a los elementos de forma ligada
 (define (mreduce func l)
   (cond 
     [(< (mlong l) 2) empty]
@@ -100,8 +127,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;6MCONCAT
-
+;; Ejercicio 6
+;; mconcat: listof-values listof-values --> listof-values
+;; Toma dos listas de elementos y regresa la concatenación
+;; de la primer lista con la segunda
 (define (mconcat l1 l2)
   (cond 
     [(and (empty? l1) (empty? l2)) '()]
@@ -120,7 +149,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;7-MAP
+;; Ejercicio 7
+;; mmap: function listof-values --> listof-values
+;; Dada una función de un argumento  y una lista de elementos,
+;; regresa una lista con la aplicación a cada elemento de la 
+;; lista original
 (define (mmap func l)
   (cond 
     [(empty? l) '()]
@@ -136,8 +169,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; 8 - MFILTER
-
+;; Ejercicio 8
+;; mfilter: predicate listof-values --> listof-values
+;; Dado un predicado de un argumento y una lista de elementos 
+;; regresa una lista con los elementos que cumplen el predicado
 (define (mfilter pred l)
   (cond 
     [(empty? l) '()]
@@ -155,8 +190,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;9 - MANY?
-
+;; Ejercicio 9
+;; many?: predicate listof-values --> boolean
+;; Dado un predicado de un argumento  y una lista de elementos 
+;; regresa #t si alguno de los elementos de la lista cumple el predicado
 (define (many? pred l)
   (cond 
     [(empty? l) #f]
@@ -172,8 +209,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;10 - MEVERY?
-
+;; Ejercicio 10
+;; mevery?: predicate listof-values --> boolean
+;; Dado un predicado de un argumento y una lista de elementos regresa
+;; #t si y solo si todos los elementos de la lista cumplen con el predicado
 (define (mevery? pred l)
   (cond 
     [(empty? l) #t]
@@ -186,14 +225,11 @@
 ;(test (mevery? symbol? '(a b c 4 e d f)) #f)
 
 
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;11 - MPOWERSET
-
+;; Ejercicio 11
+;; mpowerset: 
 (define (mpowerset l)
   (cond 
     [(empty? l) (list '())]
