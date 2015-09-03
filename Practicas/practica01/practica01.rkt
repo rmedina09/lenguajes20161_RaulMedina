@@ -1,4 +1,5 @@
 #lang plai
+
 (define (mpow a n)
   (cond 
     [(zero? n) 1]
@@ -44,14 +45,7 @@
          #f
          (isprime2? (add1 k) n))]))
 
-
-;(define (isdivisor? n m) 
- ; (if (= (modulo n m) 0)
- ;     #t
-      ;#f))
-  
-  
-  
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;ZIP
 
@@ -105,13 +99,6 @@
          (cons (car l) (mfilter pred (cdr l)))
          (mfilter pred (cdr l)))]))
 
-
-
-
-
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;MANY?
@@ -132,69 +119,32 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;MPOWERSET
-;(define (mpowerset l)
- ; (cond 
+
+(define (mpowerset l) 
+  (mpowerset-aux 1 l))
+
+(define (mpowerset-aux long-set l)
+  (cond 
+    [(empty? l) (list '())]
+    [else (append (list '()) (msubsets long-set l) (mpowerset-aux (add1 long-set) l))]))
+
+(define (msubsets long-set l)
+  (cond 
+    [(= long-set 1) (genera 1 l)]
+    [(= (mlong l) long-set) (genera long-set l)]
+    [(> (mlong l) long-set) (append (genera long-set l) (msubsets long-set (cdr l)))]))
 
 
+(define (genera l-subset l)
+  (cond
+    [(< (mlong l) l-subset) '()]
+    [(= l-subset 1) (cons (list (car l)) (genera l-subset (cdr l)))]
+    [else (cons (tupla l-subset l) (genera l-subset (cons (car l) (cddr l))))]))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+(define (tupla l-subset l)
+  (cond 
+    [(<= l-subset 0) '()]
+    [else (cons (car l) (tupla (sub1 l-subset) (cdr l)))]))
 
 
 
