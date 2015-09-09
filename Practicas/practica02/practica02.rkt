@@ -167,6 +167,7 @@
 (define l4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
 (define l5 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons 3 (MEmpty))))
 (define l6 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MEmpty))))
+(define l7 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MCons 3 (MEmpty)))))
 
 ;; test
 (test (printML l1) "[]")
@@ -174,6 +175,7 @@
 (test (printML l3) "[1, 3]")
 (test (printML l5) "[[1, 2], 3]")
 (test (printML l6) "[[1, 2], [3, 4]]")
+(test (printML l7) "[[1, 2], [3, 4], 3]")
 
 ;=================================================================
 ;=================================================================
