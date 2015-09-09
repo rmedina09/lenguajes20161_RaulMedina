@@ -128,11 +128,11 @@
                              [else (MCons (car marr) (MArray2MList (MArray (sub1 msize) (cdr marr))))]
                              )]))
 ;; define 
-(define arr1 (MArray 0 '()))
-(define arr2 (MArray 1 '(1)))
-(define arr3 (MArray 2 '(1 2)))
-(define arr4 (MArray 3 '(1 2 3)))
-(define arr5 (MArray 4 '("a" "b" "c" "d")))
+;(define arr1 (MArray 0 '()))
+;(define arr2 (MArray 1 '(1)))
+;(define arr3 (MArray 2 '(1 2)))
+;(define arr4 (MArray 3 '(1 2 3)))
+;(define arr5 (MArray 4 '("a" "b" "c" "d")))
 ;; test
 ;(test (MArray2MList arr1) (MEmpty))
 ;(test (MArray2MList arr2) (MCons 1 (MEmpty)))
@@ -144,6 +144,36 @@
 ;=================================================================
 
 ;; Ejercicio 8
+;; printML: MList --> string
+;; Dado un tipo de dato MList, regresa una representación de la lista en un formato legible
+(define (printML l)
+  (~a "[" (aux-printML l) "]"))
+
+(define (aux-printML l)
+  (type-case MList l
+    [MEmpty () ""]
+    [MCons (mhead mrest) (cond
+                           [(and (MCons? mhead) (MCons? mrest)) (~a "[" (aux-printML mhead) "], "  (aux-printML mrest))]
+                           [(and (MCons? mhead) (MEmpty? mrest)) (~a "[" (aux-printML mhead) "]")]
+                           [else (if (MEmpty? mrest)
+                                     (~a mhead "")
+                                     (~a mhead ", " (aux-printML mrest)))])]))
+
+    
+;; define
+(define l1 (MEmpty))
+(define l2 (MCons 2 (MEmpty)))
+(define l3 (MCons 1 (MCons 3 (MEmpty))))
+(define l4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
+(define l5 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons 3 (MEmpty))))
+(define l6 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MEmpty))))
+
+;; test
+(test (printML l1) "[]")
+(test (printML l2) "[2]")
+(test (printML l3) "[1, 3]")
+(test (printML l5) "[[1, 2], 3]")
+(test (printML l6) "[[1, 2], [3, 4]]")
 
 ;=================================================================
 ;=================================================================
@@ -157,12 +187,12 @@
     [MEmpty () l2]
     [MCons (mhead mrest) (MCons mhead (concatML mrest l2))]))
 
-;; test
-(define l1 (MEmpty))
-(define l2 (MCons 2 (MEmpty)))
-(define l3 (MCons 3 (MEmpty)))
-(define l4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
 ;; define
+;(define l1 (MEmpty))
+;(define l2 (MCons 2 (MEmpty)))
+;(define l3 (MCons 3 (MEmpty)))
+;(define l4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
+;; test
 ;(test (concatML l1 l1) (MEmpty))
 ;(test (concatML l1 l2) (MCons 2 (MEmpty)))
 ;(test (concatML l2 l1) (MCons 2 (MEmpty)))
@@ -304,10 +334,12 @@
   (type-case Position pos
     [2D-Point (cX cY) cY]))
                            
-(test (in-figure? (Circle (2D-Point 0 0) 4) (2D-Point 3 0)) #t)
-(test (in-figure? (Circle (2D-Point 0 0) 4) (2D-Point 4 4)) #f)
-(test (in-figure? (Square (2D-Point 5 5) 4) (2D-Point 6 6)) #t)
-(test (in-figure? (Rectangle (2D-Point 5 5) 4 6) (2D-Point 4 4)) #f)
+;(test (in-figure? (Circle (2D-Point 0 0) 4) (2D-Point 3 0)) #t)
+;(test (in-figure? (Circle (2D-Point 0 0) 4) (2D-Point 4 4)) #f)
+;(test (in-figure? (Square (2D-Point 5 5) 4) (2D-Point 6 6)) #t)
+;(test (in-figure? (Square (2D-Point 5 5) 4) (2D-Point 2 2)) #f)
+;(test (in-figure? (Rectangle (2D-Point 5 5) 4 6) (2D-Point 4 4)) #f)
+;(test (in-figure? (Rectangle (2D-Point 5 5) 4 6) (2D-Point 7 8)) #t)
 
 
       
