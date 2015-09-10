@@ -87,6 +87,7 @@
 
 ;=================================================================
 ;=================================================================
+
 ;; Ejercicio 6
 ;; setvalueA: Array number number --> Array
 ;; Dado un Array, una posición y un valor, regresa un nuevo Array
@@ -149,6 +150,9 @@
 (define (printML l)
   (~a "[" (aux-printML l) "]"))
 
+;; aux-printML: MList --> string
+;; Función auxiliar de printML que dada una MList regresa una cadena que representa
+;; los elementos de lista pero sin los corchetes principales
 (define (aux-printML l)
   (type-case MList l
     [MEmpty () ""]
@@ -161,21 +165,21 @@
 
     
 ;; define
-(define l1 (MEmpty))
-(define l2 (MCons 2 (MEmpty)))
-(define l3 (MCons 1 (MCons 3 (MEmpty))))
-(define l4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
-(define l5 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons 3 (MEmpty))))
-(define l6 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MEmpty))))
-(define l7 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MCons 3 (MEmpty)))))
+;(define l1 (MEmpty))
+;(define l2 (MCons 2 (MEmpty)))
+;(define l3 (MCons 1 (MCons 3 (MEmpty))))
+;(define l4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
+;(define l5 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons 3 (MEmpty))))
+;(define l6 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MEmpty))))
+;(define l7 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MCons 3 (MEmpty)))))
 
 ;; test
-(test (printML l1) "[]")
-(test (printML l2) "[2]")
-(test (printML l3) "[1, 3]")
-(test (printML l5) "[[1, 2], 3]")
-(test (printML l6) "[[1, 2], [3, 4]]")
-(test (printML l7) "[[1, 2], [3, 4], 3]")
+;(test (printML l1) "[]")
+;(test (printML l2) "[2]")
+;(test (printML l3) "[1, 3]")
+;(test (printML l5) "[[1, 2], 3]")
+;(test (printML l6) "[[1, 2], [3, 4]]")
+;(test (printML l7) "[[1, 2], [3, 4], 3]")
 
 ;=================================================================
 ;=================================================================
@@ -274,6 +278,75 @@
 ;(test (filterML list3 (lambda (x) (not (zero? x)))) (MCons 6 (MEmpty)))
 ;(test (filterML list4 (lambda (x) (zero? x))) (MEmpty))
 ;(test (filterML list5 (lambda (x) (string? x))) (MCons "a" (MCons "b" (MEmpty))))
+
+;=================================================================
+;=================================================================
+;; Tipo de dato Coordinates, describe una coordenada GPS 
+(define-type Coordinates
+  [GPS (lat number?) (long number?)])
+
+;; Location, tipo de dato que describe los datos de un lugar. Consta del nombre y coordenadas GPS
+(define-type Location
+  [building (name string?) (loc GPS?)])
+
+;; Coordenadas GPS
+(define gps-satelite (GPS 19.510482 -99.23411900000002))
+(define gps-ciencias (GPS 19.3239411016 -99.179806709))
+(define gps-zocalo (GPS 19.432721893261117 -99.13332939147949))
+(define gps-perisur (GPS 19.304135 -99.19001000000003))
+;; Location 
+(define plaza-satelite (building "Plaza Satelite" gps-satelite))
+(define ciencias (building "Facultad de Ciencias" gps-ciencias))
+(define zocalo (building "Zocalo" gps-zocalo))
+(define plaza-perisur (building "Plaza Perisur" gps-perisur))
+;; Lista de Location
+(define plazas (MCons plaza-satelite (MCons plaza-perisur (MEmpty))))
+
+;=================================================================
+;=================================================================
+
+;; Ejercicio 13
+;; haversine: Coordinates Coordinates --> number
+;; Dados dos valores GPS calcula la distancia entre ellos usando la formula de haversine
+(define (haversine g1 g2)
+  (let* ([d2r (/ pi 180)]
+         [DLat (* (/ (- (GPS-lat g2) (GPS-lat g1)) 2) d2r)]
+         [DLon (* (/ (- (GPS-long g2) (GPS-long g1)) 2) d2r)]
+         [sen2DLat (* (sin DLat) (sin DLat))]
+         [sen2DLon (* (sin DLon) (sin DLon))]
+         [multCosSen2DLon (* (cos (GPS-lat g1)) (cos (GPS-lat g2)) sen2DLon)]                           
+         [h (+ sen2DLat multCosSen2DLon)]
+         [2R (* 2 6371)]
+         [arcSenh (asin (sqrt h))])
+    (* 2R arcSenh)))
+
+;; test
+(test (haversine gps-ciencias gps-zocalo)12.889631327823086)
+(test (haversine gps-ciencias gps-perisur) 2.424680843058557)
+(test (haversine gps-satelite gps-perisur) 23.313579330863593)
+(test (haversine gps-ciencias gps-satelite)21.350881751013738)
+(test (haversine gps-satelite gps-zocalo)12.55105417471533)
+
+;=================================================================
+;=================================================================
+
+;; Ejercicio 14
+;;
+;;
+
+;=================================================================
+;=================================================================
+
+;; Ejercicio 15
+;;
+;;
+
+;=================================================================
+;=================================================================
+
+;; Ejercicio 16
+;;
+;;
 
 ;=================================================================
 ;=================================================================
