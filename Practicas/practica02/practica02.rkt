@@ -321,24 +321,45 @@
     (* 2R arcSenh)))
 
 ;; test
-(test (haversine gps-ciencias gps-zocalo)12.889631327823086)
-(test (haversine gps-ciencias gps-perisur) 2.424680843058557)
-(test (haversine gps-satelite gps-perisur) 23.313579330863593)
-(test (haversine gps-ciencias gps-satelite)21.350881751013738)
-(test (haversine gps-satelite gps-zocalo)12.55105417471533)
+;(test (haversine gps-ciencias gps-zocalo)12.889631327823086)
+;(test (haversine gps-ciencias gps-perisur) 2.424680843058557)
+;(test (haversine gps-satelite gps-perisur) 23.313579330863593)
+;(test (haversine gps-ciencias gps-satelite)21.350881751013738)
+;(test (haversine gps-satelite gps-zocalo)12.55105417471533)
 
 ;=================================================================
 ;=================================================================
 
 ;; Ejercicio 14
-;;
-;;
+;; gps-coordinates: listof-Location --> listof-Coordinates
+;; Dada una lista de Location (building), regresa una lista de coordenadas GPS
+;; de los edificios (building). Las listas son de tipo MList
+
+(define (gps-coordinates lb)
+  (type-case MList lb
+    [MEmpty () (MEmpty)]
+    [MCons (mhead mrest) (MCons (building-loc mhead) (gps-coordinates mrest))]))
+
+;; define
+;(define buildings1 (MCons plaza-perisur (MEmpty)))
+;(define buildings2 (MCons zocalo (MCons plaza-perisur (MEmpty))))
+;(define buildings3 (MCons ciencias (MCons zocalo (MCons plaza-perisur (MEmpty)))))
+;(define buildings4 (MCons plaza-satelite (MCons ciencias (MCons zocalo (MCons plaza-perisur (MEmpty))))))
+
+;; test
+;(test (gps-coordinates (MEmpty)) (MEmpty))
+;(test (gps-coordinates plazas) (MCons (GPS 19.510482 -99.23411900000002) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty))))
+;(test (gps-coordinates buildings1) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty)))
+;(test (gps-coordinates buildings2) (MCons (GPS 19.432721893261117 -99.13332939147949) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty))))
+;(test (gps-coordinates buildings3) (MCons (GPS 19.3239411016 -99.179806709) (MCons (GPS 19.432721893261117 -99.13332939147949) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty)))))
+;(test (gps-coordinates buildings4) (MCons (GPS 19.510482 -99.23411900000002) (MCons (GPS 19.3239411016 -99.179806709) (MCons (GPS 19.432721893261117 -99.13332939147949) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty))))))
+
 
 ;=================================================================
 ;=================================================================
 
 ;; Ejercicio 15
-;;
+;; 
 ;;
 
 ;=================================================================
