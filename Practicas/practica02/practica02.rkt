@@ -367,6 +367,10 @@
     [MEmpty () MEmpty]
     [MCons (mhead mrest) (aux-closest-building mhead (haversine (building-loc mhead) (building-loc b)) b mrest)]))
 
+;; aux-closest-building building number building MList-of-building --> building
+;; Función auxiliar para closest-building que dado un building X, otro building Y,
+;; un number que es la distancia de X a Y y una MList de building, regresa el building
+;; de menor distancia del biulding X a la lista, si es que es menor a la distancia con Y
 (define (aux-closest-building bh d b lb)
   (cond
     [(MEmpty? lb) bh]
@@ -389,9 +393,27 @@
 ;=================================================================
 
 ;; Ejercicio 16
-;; 
-;;
+;; buildings-at-distance: Location MList-of-Location number --> MList-of-Location
+;; Dado un building (Location), una MList de buildings y un number d que representa una distancia,
+;; regresa una nueva MList con los buildings que esten a una distancia menor o igual a d
+(define (buildings-at-distance b list-b d)
+  (type-case MList list-b
+    [MEmpty () (MEmpty)]
+    [MCons (mhead mrest) (if (<= (haversine (building-loc mhead) (building-loc b)) d)
+                             (MCons mhead (buildings-at-distance b mrest d))
+                             (buildings-at-distance b mrest d))]))
 
+;; define
+(define plazasDistance (MCons ciencias (MCons plaza-satelite (MCons zocalo (MCons plaza-perisur (MEmpty))))))
+;; test
+;(test (buildings-at-distance ciencias (MEmpty) 100) (MEmpty))
+;(test (buildings-at-distance ciencias plazasDistance -1) (MEmpty))
+;(test (buildings-at-distance ciencias plazasDistance 1) (MCons (building "Facultad de Ciencias" (GPS 19.3239411016 -99.179806709)) (MEmpty)))
+;(test (buildings-at-distance zocalo plazasDistance 13) (MCons  (building "Facultad de Ciencias" (GPS 19.3239411016 -99.179806709)) (MCons (building "Plaza Satelite" (GPS 19.510482 -99.23411900000002)) (MCons (building "Zocalo" (GPS 19.432721893261117 -99.13332939147949)) (MEmpty)))))
+;(test (buildings-at-distance ciencias plazasDistance 10) (MCons (building "Facultad de Ciencias" (GPS 19.3239411016 -99.179806709)) (MCons (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)) (MEmpty))))
+;(test (buildings-at-distance ciencias plazas 10) (MCons (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)) (MEmpty)))
+;(test (buildings-at-distance ciencias plazas 20) (MCons (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)) (MEmpty)))
+         
 ;=================================================================
 ;=================================================================
 
