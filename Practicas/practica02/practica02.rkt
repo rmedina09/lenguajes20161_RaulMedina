@@ -95,7 +95,7 @@
 (define (setvalueA arr pos val)
   (type-case Array arr
     [MArray (msize marr) (cond
-                           [(or (>= pos msize) (< pos 0)) "error"]
+                           [(or (>= pos msize) (< pos 0)) (error 'setValueA "Out of bounds")]
                            [else (MArray msize (aux-setvalueA marr pos val))])]))
 
 ;; aux-setvalueA: listof-values number number --> listof-values
@@ -107,13 +107,13 @@
     [else (cons (car ar) (aux-setvalueA (cdr ar) (sub1 pos) val))]))
 
 ;; test
-;(define ar (MArray 5 '(0 0 0 0 0)))
+(define ar (MArray 5 '(0 0 0 0 0)))
 ;(test (setvalueA ar 0 9) (MArray 5 '(9 0 0 0 0)))
 ;(test (setvalueA ar 1 9) (MArray 5 '(0 9 0 0 0)))
 ;(test (setvalueA ar 4 9) (MArray 5 '(0 0 0 0 9)))
-;(test (setvalueA ar -1 9)  "error")
-;(test (setvalueA ar 5 9) "error")
-;(test (setvalueA ar 8 9) "error")
+;(test/exn (setvalueA ar -1 9)  "setValueA: Out of bounds")
+;(test/exn (setvalueA ar 5 9) "setValueA: Out of bounds")
+;(test/exn (setvalueA ar 8 9) "setValueA: Out of bounds")
 
 ;=================================================================
 ;=================================================================
