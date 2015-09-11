@@ -11,11 +11,11 @@
   [MArray (msize any?) (marr list?)])
 
 ;; test
-;(test (MArray 0 '()) (MArray 0 '()))
-;(test (MArray 1 '(7)) (MArray 1'(7)))
-;(test (MArray 2 '(3 4)) (MArray 2 '(3 4)))
-;(test (MArray 6 '(1 2 3)) (MArray 6 '(1 2 3)))
-;(test (MArray 5 '(1 2 3 4 5)) (MArray 5 '(1 2 3 4 5)))
+(test (MArray 0 '()) (MArray 0 '()))
+(test (MArray 1 '(7)) (MArray 1'(7)))
+(test (MArray 2 '(3 4)) (MArray 2 '(3 4)))
+(test (MArray 6 '(1 2 3)) (MArray 6 '(1 2 3)))
+(test (MArray 5 '(1 2 3 4 5)) (MArray 5 '(1 2 3 4 5)))
 
 ;=================================================================
 ;=================================================================
@@ -28,11 +28,11 @@
   [MEmpty])
 
 ;; test
-;(test (MEmpty) (MEmpty)) 
-;(test (MCons 2 (MEmpty)) (MCons 2 (MEmpty))) 
-;(test (MCons 2 (MCons 9 (MEmpty))) (MCons 2 (MCons 9 (MEmpty))))
-;(test (MCons 2 (MCons 9 (MCons 5 (MEmpty)))) (MCons 2 (MCons 9 (MCons 5 (MEmpty)))))
-;(test (MCons 2 (MCons 9 (MCons 5 (MCons 8 (MEmpty))))) (MCons 2 (MCons 9 (MCons 5 (MCons 8 (MEmpty))))))
+(test (MEmpty) (MEmpty)) 
+(test (MCons 2 (MEmpty)) (MCons 2 (MEmpty))) 
+(test (MCons 2 (MCons 9 (MEmpty))) (MCons 2 (MCons 9 (MEmpty))))
+(test (MCons 2 (MCons 9 (MCons 5 (MEmpty)))) (MCons 2 (MCons 9 (MCons 5 (MEmpty)))))
+(test (MCons 2 (MCons 9 (MCons 5 (MCons 8 (MEmpty))))) (MCons 2 (MCons 9 (MCons 5 (MCons 8 (MEmpty))))))
 
 ;=================================================================
 ;=================================================================
@@ -45,12 +45,11 @@
   [NodeN (elem any?) (sons (listof NTree?))])
 
 ;; test
-;(test (TLEmpty) (TLEmpty))
-;(test (NodeN 6 (list (TLEmpty))) (NodeN 6 (list (TLEmpty))))
-;(test (NodeN 6 (list (TLEmpty) (TLEmpty) (TLEmpty))) (NodeN 6 (list (TLEmpty) (TLEmpty) (TLEmpty))))
-;(test (NodeN 6 (list (TLEmpty) (NodeN 3 (list (TLEmpty))))) (NodeN 6 (list (TLEmpty) (NodeN 3 (list (TLEmpty))))))
-;(test (NodeN 6 (list (NodeN 4 (list (TLEmpty))) (NodeN 3 (list (TLEmpty))) (NodeN 9 (list (TLEmpty)))))
-;      (NodeN 6 (list (NodeN 4 (list (TLEmpty))) (NodeN 3 (list (TLEmpty))) (NodeN 9 (list (TLEmpty))))))
+(test (TLEmpty) (TLEmpty))
+(test (NodeN 6 (list (TLEmpty))) (NodeN 6 (list (TLEmpty))))
+(test (NodeN 6 (list (TLEmpty) (TLEmpty) (TLEmpty))) (NodeN 6 (list (TLEmpty) (TLEmpty) (TLEmpty))))
+(test (NodeN 6 (list (TLEmpty) (NodeN 3 (list (TLEmpty))))) (NodeN 6 (list (TLEmpty) (NodeN 3 (list (TLEmpty))))))
+(test (NodeN 6 (list (NodeN 4 (list (TLEmpty))) (NodeN 3 (list (TLEmpty))) (NodeN 9 (list (TLEmpty))))) (NodeN 6 (list (NodeN 4 (list (TLEmpty))) (NodeN 3 (list (TLEmpty))) (NodeN 9 (list (TLEmpty))))))
 
 ;=================================================================
 ;=================================================================
@@ -62,11 +61,11 @@
   [2D-Point (cX number?) (cY number?)])
 
 ;; test
-;(test (2D-Point 0 0) (2D-Point 0 0))
-;(test (2D-Point 1 2) (2D-Point 1 2))
-;(test (2D-Point -20 10) (2D-Point -20 10))
-;(test (2D-Point 4.34 0) (2D-Point 4.34 0))
-;(test (2D-Point (sqrt 3) (+ 3 4.8)) (2D-Point 1.7320508075688772 7.8))
+(test (2D-Point 0 0) (2D-Point 0 0))
+(test (2D-Point 1 2) (2D-Point 1 2))
+(test (2D-Point -20 10) (2D-Point -20 10))
+(test (2D-Point 4.34 0) (2D-Point 4.34 0))
+(test (2D-Point (sqrt 3) (+ 3 4.8)) (2D-Point 1.7320508075688772 7.8))
 
 ;=================================================================
 ;=================================================================
@@ -79,11 +78,11 @@
   [Square (corner Position?) (height number?)]
   [Rectangle (corner Position?) (width number?) (height number?)])
 
-;(test (Circle (2D-Point 0 0) 1) (Circle (2D-Point 0 0) 1))
-;(test (Circle (2D-Point 1 3) 10) (Circle (2D-Point 1 3) 10))
-;(test (Square (2D-Point 0 0) 5) (Square (2D-Point 0 0) 5))
-;(test (Square (2D-Point -3 -2) 10) (Square (2D-Point -3 -2) 10))
-;(test (Rectangle (2D-Point 0 0) 10 5) (Rectangle (2D-Point 0 0) 10 5))
+(test (Circle (2D-Point 0 0) 1) (Circle (2D-Point 0 0) 1))
+(test (Circle (2D-Point 1 3) 10) (Circle (2D-Point 1 3) 10))
+(test (Square (2D-Point 0 0) 5) (Square (2D-Point 0 0) 5))
+(test (Square (2D-Point -3 -2) 10) (Square (2D-Point -3 -2) 10))
+(test (Rectangle (2D-Point 0 0) 10 5) (Rectangle (2D-Point 0 0) 10 5))
 
 ;=================================================================
 ;=================================================================
@@ -108,12 +107,12 @@
 
 ;; test
 (define ar (MArray 5 '(0 0 0 0 0)))
-;(test (setvalueA ar 0 9) (MArray 5 '(9 0 0 0 0)))
-;(test (setvalueA ar 1 9) (MArray 5 '(0 9 0 0 0)))
-;(test (setvalueA ar 4 9) (MArray 5 '(0 0 0 0 9)))
-;(test/exn (setvalueA ar -1 9)  "setValueA: Out of bounds")
-;(test/exn (setvalueA ar 5 9) "setValueA: Out of bounds")
-;(test/exn (setvalueA ar 8 9) "setValueA: Out of bounds")
+(test (setvalueA ar 0 9) (MArray 5 '(9 0 0 0 0)))
+(test (setvalueA ar 1 9) (MArray 5 '(0 9 0 0 0)))
+(test (setvalueA ar 4 9) (MArray 5 '(0 0 0 0 9)))
+(test/exn (setvalueA ar -1 9)  "setValueA: Out of bounds")
+(test/exn (setvalueA ar 5 9) "setValueA: Out of bounds")
+(test/exn (setvalueA ar 8 9) "setValueA: Out of bounds")
 
 ;=================================================================
 ;=================================================================
@@ -129,17 +128,17 @@
                              [else (MCons (car marr) (MArray2MList (MArray (sub1 msize) (cdr marr))))]
                              )]))
 ;; define 
-;(define arr1 (MArray 0 '()))
-;(define arr2 (MArray 1 '(1)))
-;(define arr3 (MArray 2 '(1 2)))
-;(define arr4 (MArray 3 '(1 2 3)))
-;(define arr5 (MArray 4 '("a" "b" "c" "d")))
+(define arr1 (MArray 0 '()))
+(define arr2 (MArray 1 '(1)))
+(define arr3 (MArray 2 '(1 2)))
+(define arr4 (MArray 3 '(1 2 3)))
+(define arr5 (MArray 4 '("a" "b" "c" "d")))
 ;; test
-;(test (MArray2MList arr1) (MEmpty))
-;(test (MArray2MList arr2) (MCons 1 (MEmpty)))
-;(test (MArray2MList arr3) (MCons 1 (MCons 2 (MEmpty))))
-;(test (MArray2MList arr4) (MCons 1 (MCons 2 (MCons 3 (MEmpty)))))
-;(test (MArray2MList arr5) (MCons "a" (MCons "b" (MCons "c" (MCons "d" (MEmpty))))))
+(test (MArray2MList arr1) (MEmpty))
+(test (MArray2MList arr2) (MCons 1 (MEmpty)))
+(test (MArray2MList arr3) (MCons 1 (MCons 2 (MEmpty))))
+(test (MArray2MList arr4) (MCons 1 (MCons 2 (MCons 3 (MEmpty)))))
+(test (MArray2MList arr5) (MCons "a" (MCons "b" (MCons "c" (MCons "d" (MEmpty))))))
 
 ;=================================================================
 ;=================================================================
@@ -165,21 +164,21 @@
 
     
 ;; define
-;(define l1 (MEmpty))
-;(define l2 (MCons 2 (MEmpty)))
-;(define l3 (MCons 1 (MCons 3 (MEmpty))))
-;(define l4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
-;(define l5 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons 3 (MEmpty))))
-;(define l6 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MEmpty))))
-;(define l7 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MCons 3 (MEmpty)))))
+(define l1 (MEmpty))
+(define l2 (MCons 2 (MEmpty)))
+(define l3 (MCons 1 (MCons 3 (MEmpty))))
+(define l4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
+(define l5 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons 3 (MEmpty))))
+(define l6 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MEmpty))))
+(define l7 (MCons (MCons 1 (MCons 2 (MEmpty))) (MCons (MCons 3 (MCons 4 (MEmpty))) (MCons 3 (MEmpty)))))
 
 ;; test
-;(test (printML l1) "[]")
-;(test (printML l2) "[2]")
-;(test (printML l3) "[1, 3]")
-;(test (printML l5) "[[1, 2], 3]")
-;(test (printML l6) "[[1, 2], [3, 4]]")
-;(test (printML l7) "[[1, 2], [3, 4], 3]")
+(test (printML l1) "[]")
+(test (printML l2) "[2]")
+(test (printML l3) "[1, 3]")
+(test (printML l5) "[[1, 2], 3]")
+(test (printML l6) "[[1, 2], [3, 4]]")
+(test (printML l7) "[[1, 2], [3, 4], 3]")
 
 ;=================================================================
 ;=================================================================
@@ -194,16 +193,16 @@
     [MCons (mhead mrest) (MCons mhead (concatML mrest l2))]))
 
 ;; define
-;(define l1 (MEmpty))
-;(define l2 (MCons 2 (MEmpty)))
-;(define l3 (MCons 3 (MEmpty)))
-;(define l4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
+(define l1-concatML (MEmpty))
+(define l2-concatML (MCons 2 (MEmpty)))
+(define l3-concatML (MCons 3 (MEmpty)))
+(define l4-concatML (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
 ;; test
-;(test (concatML l1 l1) (MEmpty))
-;(test (concatML l1 l2) (MCons 2 (MEmpty)))
-;(test (concatML l2 l1) (MCons 2 (MEmpty)))
-;(test (concatML l2 l4) (MCons 2 (MCons 8 (MCons 3 (MCons 1 (MEmpty))))))
-;(test (concatML l4 l2) (MCons 8 (MCons 3 (MCons 1 (MCons 2 (MEmpty))))))
+(test (concatML l1-concatML l1-concatML) (MEmpty))
+(test (concatML l1-concatML l2-concatML) (MCons 2 (MEmpty)))
+(test (concatML l2-concatML l1-concatML) (MCons 2 (MEmpty)))
+(test (concatML l2-concatML l4-concatML) (MCons 2 (MCons 8 (MCons 3 (MCons 1 (MEmpty))))))
+(test (concatML l4-concatML l2-concatML) (MCons 8 (MCons 3 (MCons 1 (MCons 2 (MEmpty))))))
 
 ;=================================================================
 ;=================================================================
@@ -217,16 +216,17 @@
     [MCons (mhead mrest) (+ 1 (lengthML mrest))]))
 
 ;; define
-;(define list1 (MEmpty))
-;(define list2 (MCons 2 (MEmpty)))
-;(define list3 (MCons 3 (MCons 6 (MEmpty))))
-;(define list4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
+(define list1-lenghtML (MEmpty))
+(define list2-lenghtML (MCons 2 (MEmpty)))
+(define list3-lenghtML (MCons 3 (MCons 6 (MEmpty))))
+(define list4-lenghtML (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
+
 ;;test
-;(test (lengthML list1) 0)
-;(test (lengthML list2) 1)
-;(test (lengthML list3) 2)
-;(test (lengthML list4) 3)
-;(test (lengthML (concatML list3 list4)) 5)
+(test (lengthML list1-lenghtML) 0)
+(test (lengthML list2-lenghtML) 1)
+(test (lengthML list3-lenghtML) 2)
+(test (lengthML list4-lenghtML) 3)
+(test (lengthML (concatML list3-lenghtML list4-lenghtML)) 5)
 
 ;=================================================================
 ;=================================================================
@@ -242,16 +242,17 @@
     [MCons (mhead mrest) (MCons (fun mhead)(mapML mrest fun))]))
 
 ;; define
-;(define list1 (MEmpty))
-;(define list2 (MCons 2 (MEmpty)))
-;(define list3 (MCons 3 (MCons 6 (MEmpty))))
-;(define list4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
+(define list1-mapML (MEmpty))
+(define list2-mapML (MCons 2 (MEmpty)))
+(define list3-mapML (MCons 3 (MCons 6 (MEmpty))))
+(define list4-mapML (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
+
 ;; test
-;(test (mapML list1 add1) (MEmpty))
-;(test (mapML list2 add1) (MCons 3 (MEmpty)))
-;(test (mapML list4 add1) (MCons 9 (MCons 4 (MCons 2 (MEmpty)))))
-;(test (mapML list3 (lambda (n) (* 2 n))) (MCons 6 (MCons 12 (MEmpty))))
-;(test (mapML list3 symbol?) (MCons #f (MCons #f (MEmpty))))
+(test (mapML list1-mapML add1) (MEmpty))
+(test (mapML list2-mapML add1) (MCons 3 (MEmpty)))
+(test (mapML list4-mapML add1) (MCons 9 (MCons 4 (MCons 2 (MEmpty)))))
+(test (mapML list3-mapML (lambda (n) (* 2 n))) (MCons 6 (MCons 12 (MEmpty))))
+(test (mapML list3-mapML symbol?) (MCons #f (MCons #f (MEmpty))))
 
 ;=================================================================
 ;=================================================================
@@ -267,17 +268,18 @@
                              (MCons mhead (filterML mrest pred))
                              (filterML mrest pred))]))
 ;; define
-;(define list1 (MEmpty))
-;(define list2 (MCons 10 (MEmpty)))
-;(define list3 (MCons 0 (MCons 6 (MEmpty))))
-;(define list4 (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
-;(define list5 (MCons 1 (MCons "a" (MCons 2 (MCons "b" (MCons 3 (MEmpty)))))))
+(define list1-fML (MEmpty))
+(define list2-fML (MCons 10 (MEmpty)))
+(define list3-fML (MCons 0 (MCons 6 (MEmpty))))
+(define list4-fML (MCons 8 (MCons 3 (MCons 1 (MEmpty)))))
+(define list5-fML (MCons 1 (MCons "a" (MCons 2 (MCons "b" (MCons 3 (MEmpty)))))))
+
 ;; test
-;(test (filterML list1 (lambda (x) (not (zero? x)))) (MEmpty))
-;(test (filterML list2 (lambda (x) (not (zero? x)))) (MCons 10 (MEmpty)))
-;(test (filterML list3 (lambda (x) (not (zero? x)))) (MCons 6 (MEmpty)))
-;(test (filterML list4 (lambda (x) (zero? x))) (MEmpty))
-;(test (filterML list5 (lambda (x) (string? x))) (MCons "a" (MCons "b" (MEmpty))))
+(test (filterML list1-fML (lambda (x) (not (zero? x)))) (MEmpty))
+(test (filterML list2-fML (lambda (x) (not (zero? x)))) (MCons 10 (MEmpty)))
+(test (filterML list3-fML (lambda (x) (not (zero? x)))) (MCons 6 (MEmpty)))
+(test (filterML list4-fML (lambda (x) (zero? x))) (MEmpty))
+(test (filterML list5-fML (lambda (x) (string? x))) (MCons "a" (MCons "b" (MEmpty))))
 
 ;=================================================================
 ;=================================================================
@@ -321,11 +323,11 @@
     (* 2R arcSenh)))
 
 ;; test
-;(test (haversine gps-ciencias gps-zocalo)12.889631327823086)
-;(test (haversine gps-ciencias gps-perisur) 2.424680843058557)
-;(test (haversine gps-satelite gps-perisur) 23.313579330863593)
-;(test (haversine gps-ciencias gps-satelite)21.350881751013738)
-;(test (haversine gps-satelite gps-zocalo)12.55105417471533)
+(test (haversine gps-ciencias gps-zocalo)12.889631327823086)
+(test (haversine gps-ciencias gps-perisur) 2.424680843058557)
+(test (haversine gps-satelite gps-perisur) 23.313579330863593)
+(test (haversine gps-ciencias gps-satelite)21.350881751013738)
+(test (haversine gps-satelite gps-zocalo)12.55105417471533)
 
 ;=================================================================
 ;=================================================================
@@ -341,18 +343,18 @@
     [MCons (mhead mrest) (MCons (building-loc mhead) (gps-coordinates mrest))]))
 
 ;; define
-;(define buildings1 (MCons plaza-perisur (MEmpty)))
-;(define buildings2 (MCons zocalo (MCons plaza-perisur (MEmpty))))
-;(define buildings3 (MCons ciencias (MCons zocalo (MCons plaza-perisur (MEmpty)))))
-;(define buildings4 (MCons plaza-satelite (MCons ciencias (MCons zocalo (MCons plaza-perisur (MEmpty))))))
+(define buildings1 (MCons plaza-perisur (MEmpty)))
+(define buildings2 (MCons zocalo (MCons plaza-perisur (MEmpty))))
+(define buildings3 (MCons ciencias (MCons zocalo (MCons plaza-perisur (MEmpty)))))
+(define buildings4 (MCons plaza-satelite (MCons ciencias (MCons zocalo (MCons plaza-perisur (MEmpty))))))
 
 ;; test
-;(test (gps-coordinates (MEmpty)) (MEmpty))
-;(test (gps-coordinates plazas) (MCons (GPS 19.510482 -99.23411900000002) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty))))
-;(test (gps-coordinates buildings1) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty)))
-;(test (gps-coordinates buildings2) (MCons (GPS 19.432721893261117 -99.13332939147949) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty))))
-;(test (gps-coordinates buildings3) (MCons (GPS 19.3239411016 -99.179806709) (MCons (GPS 19.432721893261117 -99.13332939147949) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty)))))
-;(test (gps-coordinates buildings4) (MCons (GPS 19.510482 -99.23411900000002) (MCons (GPS 19.3239411016 -99.179806709) (MCons (GPS 19.432721893261117 -99.13332939147949) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty))))))
+(test (gps-coordinates (MEmpty)) (MEmpty))
+(test (gps-coordinates plazas) (MCons (GPS 19.510482 -99.23411900000002) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty))))
+(test (gps-coordinates buildings1) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty)))
+(test (gps-coordinates buildings2) (MCons (GPS 19.432721893261117 -99.13332939147949) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty))))
+(test (gps-coordinates buildings3) (MCons (GPS 19.3239411016 -99.179806709) (MCons (GPS 19.432721893261117 -99.13332939147949) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty)))))
+(test (gps-coordinates buildings4) (MCons (GPS 19.510482 -99.23411900000002) (MCons (GPS 19.3239411016 -99.179806709) (MCons (GPS 19.432721893261117 -99.13332939147949) (MCons (GPS 19.304135 -99.19001000000003) (MEmpty))))))
 
 
 ;=================================================================
@@ -380,15 +382,17 @@
                 (aux-closest-building newBuild newDistance b (MCons-mrest lb))
                 (aux-closest-building bh d b (MCons-mrest lb))))]))
 ;; define
-;(define plazasClosest1 (MCons plaza-satelite (MCons zocalo (MCons plaza-perisur (MEmpty))))) ;ciencias
-;(define plazasClosest2 (MCons ciencias (MCons zocalo (MCons plaza-perisur (MEmpty))))) ;plaza-satelite
-;(define plazasClosest3 (MCons plaza-satelite (MCons ciencias (MCons plaza-perisur (MEmpty))))) ;zocalo
+(define plazasClosest1 (MCons plaza-satelite (MCons zocalo (MCons plaza-perisur (MEmpty))))) ;ciencias
+(define plazasClosest2 (MCons ciencias (MCons zocalo (MCons plaza-perisur (MEmpty))))) ;plaza-satelite
+(define plazasClosest3 (MCons plaza-satelite (MCons ciencias (MCons plaza-perisur (MEmpty))))) ;zocalo
+
 ;; test
-;(test (closest-building zocalo plazas) (building "Plaza Satelite" (GPS 19.510482 -99.23411900000002)))
-;(test (closest-building ciencias plazas) (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)))
-;(test (closest-building ciencias plazasClosest1) (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)))
-;(test (closest-building plaza-satelite plazasClosest2) (building "Zocalo" (GPS 19.432721893261117 -99.13332939147949)));
-;(test (closest-building zocalo plazasClosest3) (building "Plaza Satelite" (GPS 19.510482 -99.23411900000002)))
+(test (closest-building zocalo plazas) (building "Plaza Satelite" (GPS 19.510482 -99.23411900000002)))
+(test (closest-building ciencias plazas) (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)))
+(test (closest-building ciencias plazasClosest1) (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)))
+(test (closest-building plaza-satelite plazasClosest2) (building "Zocalo" (GPS 19.432721893261117 -99.13332939147949)));
+(test (closest-building zocalo plazasClosest3) (building "Plaza Satelite" (GPS 19.510482 -99.23411900000002)))
+
 ;=================================================================
 ;=================================================================
 
@@ -405,14 +409,15 @@
 
 ;; define
 (define plazasDistance (MCons ciencias (MCons plaza-satelite (MCons zocalo (MCons plaza-perisur (MEmpty))))))
+
 ;; test
-;(test (buildings-at-distance ciencias (MEmpty) 100) (MEmpty))
-;(test (buildings-at-distance ciencias plazasDistance -1) (MEmpty))
-;(test (buildings-at-distance ciencias plazasDistance 1) (MCons (building "Facultad de Ciencias" (GPS 19.3239411016 -99.179806709)) (MEmpty)))
-;(test (buildings-at-distance zocalo plazasDistance 13) (MCons  (building "Facultad de Ciencias" (GPS 19.3239411016 -99.179806709)) (MCons (building "Plaza Satelite" (GPS 19.510482 -99.23411900000002)) (MCons (building "Zocalo" (GPS 19.432721893261117 -99.13332939147949)) (MEmpty)))))
-;(test (buildings-at-distance ciencias plazasDistance 10) (MCons (building "Facultad de Ciencias" (GPS 19.3239411016 -99.179806709)) (MCons (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)) (MEmpty))))
-;(test (buildings-at-distance ciencias plazas 10) (MCons (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)) (MEmpty)))
-;(test (buildings-at-distance ciencias plazas 20) (MCons (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)) (MEmpty)))
+(test (buildings-at-distance ciencias (MEmpty) 100) (MEmpty))
+(test (buildings-at-distance ciencias plazasDistance -1) (MEmpty))
+(test (buildings-at-distance ciencias plazasDistance 1) (MCons (building "Facultad de Ciencias" (GPS 19.3239411016 -99.179806709)) (MEmpty)))
+(test (buildings-at-distance zocalo plazasDistance 13) (MCons  (building "Facultad de Ciencias" (GPS 19.3239411016 -99.179806709)) (MCons (building "Plaza Satelite" (GPS 19.510482 -99.23411900000002)) (MCons (building "Zocalo" (GPS 19.432721893261117 -99.13332939147949)) (MEmpty)))))
+(test (buildings-at-distance ciencias plazasDistance 10) (MCons (building "Facultad de Ciencias" (GPS 19.3239411016 -99.179806709)) (MCons (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)) (MEmpty))))
+(test (buildings-at-distance ciencias plazas 10) (MCons (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)) (MEmpty)))
+(test (buildings-at-distance ciencias plazas 20) (MCons (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)) (MEmpty)))
          
 ;=================================================================
 ;=================================================================
@@ -427,19 +432,19 @@
     [Rectangle (corner width height) (* width height)]))
 
 ;; define
-;(define c1 (Circle (2D-Point 0 0) 1))
-;(define c2 (Circle (2D-Point 3 3) 3))
-;(define s1 (Square (2D-Point 0 0) 5))
-;(define s2 (Square (2D-Point 2 5) 10))
-;(define r1 (Rectangle (2D-Point 0 0) 6 3))
-;(define r2 (Rectangle (2D-Point 1 1) 20 40))
+(define c1 (Circle (2D-Point 0 0) 1))
+(define c2 (Circle (2D-Point 3 3) 3))
+(define s1 (Square (2D-Point 0 0) 5))
+(define s2 (Square (2D-Point 2 5) 10))
+(define r1 (Rectangle (2D-Point 0 0) 6 3))
+(define r2 (Rectangle (2D-Point 1 1) 20 40))
 
-;(test (area c1) pi)
-;(test (area c2) 28.274333882308138)
-;(test (area s1) 25)
-;(test (area s2) 100)
-;(test (area r1) 18)
-;(test (area r2) 800)
+(test (area c1) pi)
+(test (area c2) 28.274333882308138)
+(test (area s1) 25)
+(test (area s2) 100)
+(test (area r1) 18)
+(test (area r2) 800)
 
 ;=================================================================
 ;=================================================================
@@ -465,22 +470,18 @@
 
 ;; getX: Position --> number
 ;; Dada un dato de tipo Position, regresa la coordenada X
-(define (getX pos)
-  (type-case Position pos
-    [2D-Point (cX cY) cX]))
-
+(define (getX pos) (2D-Point-cX pos))
+  
 ;; getY: Position --> number
 ;; Dada un dato de tipo Position, regresa la coordenada Y
-(define (getY pos)
-  (type-case Position pos
-    [2D-Point (cX cY) cY]))
-                           
-;(test (in-figure? (Circle (2D-Point 0 0) 4) (2D-Point 3 0)) #t)
-;(test (in-figure? (Circle (2D-Point 0 0) 4) (2D-Point 4 4)) #f)
-;(test (in-figure? (Square (2D-Point 5 5) 4) (2D-Point 6 6)) #t)
-;(test (in-figure? (Square (2D-Point 5 5) 4) (2D-Point 2 2)) #f)
-;(test (in-figure? (Rectangle (2D-Point 5 5) 4 6) (2D-Point 4 4)) #f)
-;(test (in-figure? (Rectangle (2D-Point 5 5) 4 6) (2D-Point 7 8)) #t)
+(define (getY pos) (2D-Point-cY pos))
+                             
+(test (in-figure? (Circle (2D-Point 0 0) 4) (2D-Point 3 0)) #t)
+(test (in-figure? (Circle (2D-Point 0 0) 4) (2D-Point 4 4)) #f)
+(test (in-figure? (Square (2D-Point 5 5) 4) (2D-Point 6 6)) #t)
+(test (in-figure? (Square (2D-Point 5 5) 4) (2D-Point 2 2)) #f)
+(test (in-figure? (Rectangle (2D-Point 5 5) 4 6) (2D-Point 4 4)) #f)
+(test (in-figure? (Rectangle (2D-Point 5 5) 4 6) (2D-Point 7 8)) #t)
 
 
       
