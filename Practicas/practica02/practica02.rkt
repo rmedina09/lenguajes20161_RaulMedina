@@ -331,7 +331,7 @@
 ;=================================================================
 
 ;; Ejercicio 14
-;; gps-coordinates: listof-Location --> listof-Coordinates
+;; gps-coordinates: MList-of-Location --> MList-of-Coordinates
 ;; Dada una lista de Location (building), regresa una lista de coordenadas GPS
 ;; de los edificios (building). Las listas son de tipo MList
 
@@ -359,14 +359,37 @@
 ;=================================================================
 
 ;; Ejercicio 15
-;; 
-;;
+;; closest-building: Location MList-of-Location --> Location
+;; Dado b un valor de tipo Location (building) y una MList  de buildings, regresa el
+;; biulding más cercano a b
+(define (closest-building b lb)
+  (type-case MList lb
+    [MEmpty () MEmpty]
+    [MCons (mhead mrest) (aux-closest-building mhead (haversine (building-loc mhead) (building-loc b)) b mrest)]))
 
+(define (aux-closest-building bh d b lb)
+  (cond
+    [(MEmpty? lb) bh]
+    [else (let* ([newBuild (MCons-mhead lb)]
+                 [newDistance (haversine (building-loc newBuild) (building-loc b))])
+            (if (<= newDistance d)
+                (aux-closest-building newBuild newDistance b (MCons-mrest lb))
+                (aux-closest-building bh d b (MCons-mrest lb))))]))
+;; define
+;(define plazasClosest1 (MCons plaza-satelite (MCons zocalo (MCons plaza-perisur (MEmpty))))) ;ciencias
+;(define plazasClosest2 (MCons ciencias (MCons zocalo (MCons plaza-perisur (MEmpty))))) ;plaza-satelite
+;(define plazasClosest3 (MCons plaza-satelite (MCons ciencias (MCons plaza-perisur (MEmpty))))) ;zocalo
+;; test
+;(test (closest-building zocalo plazas) (building "Plaza Satelite" (GPS 19.510482 -99.23411900000002)))
+;(test (closest-building ciencias plazas) (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)))
+;(test (closest-building ciencias plazasClosest1) (building "Plaza Perisur" (GPS 19.304135 -99.19001000000003)))
+;(test (closest-building plaza-satelite plazasClosest2) (building "Zocalo" (GPS 19.432721893261117 -99.13332939147949)));
+;(test (closest-building zocalo plazasClosest3) (building "Plaza Satelite" (GPS 19.510482 -99.23411900000002)))
 ;=================================================================
 ;=================================================================
 
 ;; Ejercicio 16
-;;
+;; 
 ;;
 
 ;=================================================================
