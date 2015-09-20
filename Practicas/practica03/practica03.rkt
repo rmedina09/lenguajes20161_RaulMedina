@@ -2,6 +2,10 @@
 
 (require "practica3-base.rkt")
 
+; ========================================================================================
+; Seccion I. Heart Rate Zones
+; ========================================================================================
+
 ;; Ejercicio 1
 ;; zone: number number --> list-of-HRZ
 ;; Dado el ritmo cardiaco de descanso r y el maximo ritmo cardiaco máximo 
@@ -96,8 +100,9 @@
 ; ========================================================================================
 
 ;; Ejercicio 4
-;; create-trackpoints: 
-;; 
+;; create-trackpoints: list-of-tuple-4 list-of-HRZ --> list-of-Frame
+;; Dada una lista donde cada elemento es una tupla de 4 y una lista de HRZ, regresa
+;; una lista de tranckpoints que contenga la información dada
 (define (create-trackpoints l l-HRZ)
   (cond
     [(empty? l) empty]
@@ -127,33 +132,132 @@
 
 ;; Ejercicio 5
 ;; total-distance: list-of-Frame --> number
+;; Dada una lista de Frame (trackpoints), regresa la distancia total recorrida
+(define (total-distance ltp)
+  (cond
+    [(empty? ltp) 0]
+    [(empty? (cdr ltp)) 0]
+    [else (let* ([gps1 (trackpoint-loc (car ltp))]
+                 [gps2 (trackpoint-loc (cadr ltp))]
+                 [h (haversine gps1 gps2)])
+            (+ h (total-distance (cdr ltp))))]))
 
+;; haversine: Coordinates Coordinates --> number
+;; Dados dos valores GPS calcula la distancia entre ellos usando la formula de haversine
+(define (haversine g1 g2)
+  (let* ([d2r (/ pi 180)]
+         [DLat (* (/ (- (GPS-lat g2) (GPS-lat g1)) 2) d2r)]
+         [DLon (* (/ (- (GPS-long g2) (GPS-long g1)) 2) d2r)]
+         [sen2DLat (* (sin DLat) (sin DLat))]
+         [sen2DLon (* (sin DLon) (sin DLon))]
+         [multCosSen2DLon (* (cos (GPS-lat g1)) (cos (GPS-lat g2)) sen2DLon)]                           
+         [h (+ sen2DLat multCosSen2DLon)]
+         [2R (* 2 6371)]
+         [arcSenh (asin (sqrt h))])
+    (* 2R arcSenh)))
 
+;;define
+(define tp1 (create-trackpoints rd1 my-zone))
+(define tp2 (create-trackpoints rd2 my-zone))
+(define tp3 (create-trackpoints (take raw-data 3) my-zone))
+(define tp4 (create-trackpoints (take raw-data 4) my-zone))
+(define tp5 (create-trackpoints (take raw-data 5) my-zone))
+(define tp10 (create-trackpoints (take raw-data 10) my-zone))
+(define tp100 (create-trackpoints (take raw-data 100) my-zone))
+(define tps (create-trackpoints raw-data my-zone))
 
+;; test
+;(test (total-distance tp1) 0)
+;(test (total-distance tp2) 0.0)
+;(test (total-distance tp10) 0.048691066531181534)
+;(test (total-distance tp100) 0.8701430216465783)
+;(test (total-distance tps) 4.638691152686352)
 
 ; ========================================================================================
 ; ========================================================================================
 
 ;; Ejercicio 6
 ;; average-hr: list-of-Frame --> number
+;; Dada una lista de tipo Frame (trackpoints), regresa el promedio del ritmo cardiaco
+(define (average-hr lt)
+  (cond
+    [(empty? lt) 0]
+    [else (exact-round (/ (addLF lt) (longLF lt)))]))
 
+;; addLF: list-of-Frame --> number
+;; Dada una lista de trackpoints, regresa la suma de los ritmos cardiacos de la lista
+(define (addLF l)
+  (cond
+    [(empty? l) 0]
+    [else (+ (trackpoint-hr (car l)) (addLF (cdr l)))]))
 
+;; longLF: list-of-Frame --> number
+;; Dada una lista de trackpoints, regresa el número de elementos de la lista
+(define (longLF l)
+  (cond
+    [(empty? l) 0]
+    [else (+ 1 (longLF (cdr l)))]))
 
+;; test
+;(test (average-hr empty) 0)
+;(test (average-hr tp1) 104)
+;(test (average-hr tp5) 107)
+;(test (average-hr tp10) 111)
+;(test (average-hr tp100) 134)
+;(test (average-hr tps) 150)
 
 ; ========================================================================================
 ; ========================================================================================
 
 ;; Ejercicio 7
 ;; max-hr: list-of-Frame --> number
+;; Dada una lista de tipo Frame (trackpoints), regresa el máximo ritmo cardiaco de la lista
+(define (max-hr lf)
+  (aux-max lf 0))
 
+;; aux-max: list-of-Frame number --> number
+;; Dada una lista de tipo Frame y un número, regresa el valor máximo entre los ritmos
+;; cardiacosde la lista y el número
+(define (aux-max l m)
+  (cond
+    [(empty? l) m]
+    [else (if (< m (trackpoint-hr (car l))) (aux-max (cdr l) (trackpoint-hr (car l))) (aux-max (cdr l) m))]))
 
-
+;; test
+;(test (max-hr empty) 0)
+;(test (max-hr tp1) 104)
+;(test (max-hr tp2) 104)
+;(test (max-hr tp5) 111)
+;(test (max-hr tp10) 120)
+;(test (max-hr tp100) 147)
+;(test (max-hr tps) 165)
 
 ; ========================================================================================
 ; ========================================================================================
 
 ;; Ejercicio 8
-;; collapse-trackpoints: list-of-Frame number --> list-of
+;; collapse-trackpoints: list-of-Frame number --> list-of-Frame
+;; Dada un lista de tipo Frame (trackpoints)y un numero que representa una epsilon, regresa
+;; una nueva lista agrupando los deltas consecutivos, i.e., la distancia de un trackpoint a
+;; otro trackpoint debe ser menor o igual a epsilon y los trackpoints deben tener el mismo
+;; ritmo cardiaco
+(define (collapse-trackpoint l e)
+  (cond
+    [(empty? l) empty]
+    [(empty? (cdr l)) l]
+    [else (let* ([gps1 (trackpoint-loc (car l))]
+                 [gps2 (trackpoint-loc (cadr l))]
+                 [h (haversine gps1 gps2)])
+            (if (and (<= h e) (= (trackpoint-hr (car l)) (trackpoint-hr (cadr l))))
+                (collapse-trackpoint (cdr l) e)
+                (append (list (car l)) (collapse-trackpoint (cdr l) e))))]))
+
+;; test
+;(test (collapse-trackpoint empty 0.01) empty)
+;(test (collapse-trackpoint tp1 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654)))
+;(test (collapse-trackpoint tp3 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658)))
+;(test (collapse-trackpoint tp4 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658) (trackpoint (GPS 19.4907107 -99.2410833) 106 (resting 50 114.0) 1425619662)))
+;(test (collapse-trackpoint tp10 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658) (trackpoint (GPS 19.4907107 -99.2410833) 106 (resting 50 114.0) 1425619662) (trackpoint (GPS 19.4907086 -99.2411981) 111 (resting 50 114.0) 1425619671) (trackpoint (GPS 19.4907059 -99.2412562) 112 (resting 50 114.0) 1425619675) (trackpoint (GPS 19.4906902 -99.2413796) 115 (warm-up 115.0 127.0) 1425619681) (trackpoint (GPS 19.4906865 -99.241445) 120 (warm-up 115.0 127.0) 1425619685) (trackpoint (GPS 19.4906861 -99.2415517) 119 (warm-up 115.0 127.0) 1425619690)))
 
 
 
