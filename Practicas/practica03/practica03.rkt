@@ -71,16 +71,55 @@
 
 ;; Ejercicio 3
 ;; bpm->zone: list-of-number list-of-HRZ --> list-of-HRZ
-
-
+;; Dada una lista de frecuencias cardiacas y una lista de HRZ, regresa
+;; una lista de HZR por cada frecuencia cardiaca
+(define (bmp->zone lfc l-HRZ)
+  (cond
+    [(empty? lfc) empty]
+    [else (let* ([fc (car lfc)]
+                [r (if (and (>= fc (resting-low (car l-HRZ))) (<= fc (resting-high (car l-HRZ)))) (list (car l-HRZ)) empty)]
+                [w (if (and (>= fc (warm-up-low (cadr l-HRZ))) (<= fc (warm-up-high (cadr l-HRZ)))) (list (cadr l-HRZ)) empty)]
+                [f (if (and (>= fc (fat-burning-low (caddr l-HRZ))) (<= fc (fat-burning-high (caddr l-HRZ)))) (list (caddr l-HRZ)) empty)]
+                [ae (if (and (>= fc (aerobic-low (cadddr l-HRZ))) (<= fc (aerobic-high (cadddr l-HRZ)))) (list (cadddr l-HRZ)) empty)]
+                [an (if (and (>= fc (anaerobic-low (cadddr (cdr l-HRZ)))) (<= fc (anaerobic-high (cadddr (cdr l-HRZ))))) (list (cadddr (cdr l-HRZ))) empty)]
+                [m (if (and (>= fc (maximum-low (cadddr (cddr l-HRZ)))) (<= fc (maximum-high (cadddr (cddr l-HRZ))))) (list (cadddr (cddr l-HRZ))) empty)])
+            (append r w f ae an m (bmp->zone (cdr lfc) l-HRZ)))]))
+      
+;; test
+;(test (bmp->zone empty my-zone) '())
+;(test (bmp->zone '(50 60) my-zone) (list (resting 50 114.0) (resting 50 114.0)))
+;(test (bmp->zone '(140 141) my-zone) (list (fat-burning 128.0 140.0) (aerobic 141.0 153.0)))
+;(test (bmp->zone '(100 114 115) my-zone) (list (resting 50 114.0) (resting 50 114.0) (warm-up 115.0 127.0)))
+;(test (bmp->zone '(50 115 128 141 154 180) my-zone) (list (resting 50 114.0) (warm-up 115.0 127.0) (fat-burning 128.0 140.0) (aerobic 141.0 153.0) (anaerobic 154.0 166.0) (maximum 167.0 180.0)))
 
 ; ========================================================================================
 ; ========================================================================================
 
 ;; Ejercicio 4
 ;; create-trackpoints: 
+;; 
+(define (create-trackpoints l l-HRZ)
+  (cond
+    [(empty? l) empty]
+    [else (let* ([gpslat (caadar l)]
+                 [gpslong (car (cdadar l))]
+                 [r (caddar l)]
+                 [z (car (bmp->zone (cddar l) l-HRZ))]
+                 [t (caar l)])
+            (append (list (trackpoint (GPS gpslat gpslong) r z t)) (create-trackpoints (cdr l) l-HRZ)))]))
 
+;; define
+(define rd1 (take raw-data 1))
+(define rd2 (take raw-data 2))
+(define rd3 (take raw-data 3))
+(define rd4 (take raw-data 4))
 
+;; test
+;(test (create-trackpoints empty my-zone) empty)
+;(test (create-trackpoints rd1 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654)))
+;(test (create-trackpoints rd2 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654) (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655)))
+;(test (create-trackpoints rd3 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654) (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658)))      
+;(test (create-trackpoints rd4 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654) (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658) (trackpoint (GPS 19.4907107 -99.2410833) 106 (resting 50 114.0) 1425619662))) 
 
 
 ; ========================================================================================
