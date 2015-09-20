@@ -36,11 +36,11 @@
       [(= i 5) (+ rest1 (* range1 (+ 0.5 (* 0.1 i))))]
       [else (+ rest1 (* range1 (+ 0.5 (* 0.1 i))) -1)])))
 
-;(test (zone 50 180) (list (resting 50 114.0) (warm-up 115.0 127.0) (fat-burning 128.0 140.0) (aerobic 141.0 153.0) (anaerobic 154.0 166.0) (maximum 167.0 180.0)))
-;(test (zone 60 120) (list (resting 60 89.0) (warm-up 90.0 95.0) (fat-burning 96.0 101.0) (aerobic 102.0 107.0) (anaerobic 108.0 113.0) (maximum 114.0 120.0)))
-;(test (zone 50 160) (list (resting 50 104.0) (warm-up 105.0 115.0) (fat-burning 116.0 126.0) (aerobic 127.0 137.0) (anaerobic 138.0 148.0) (maximum 149.0 160.0)))
-;(test (zone 70 180) (list (resting 70 124.0) (warm-up 125.0 135.0) (fat-burning 136.0 146.0) (aerobic 147.0 157.0) (anaerobic 158.0 168.0) (maximum 169.0 180.0)))
-;(test (zone 60 200) (list (resting 60 129.0) (warm-up 130.0 143.0) (fat-burning 144.0 157.0) (aerobic 158.0 171.0) (anaerobic 172.0 185.0) (maximum 186.0 200.0)))
+(test (zone 50 180) (list (resting 50 114.0) (warm-up 115.0 127.0) (fat-burning 128.0 140.0) (aerobic 141.0 153.0) (anaerobic 154.0 166.0) (maximum 167.0 180.0)))
+(test (zone 60 120) (list (resting 60 89.0) (warm-up 90.0 95.0) (fat-burning 96.0 101.0) (aerobic 102.0 107.0) (anaerobic 108.0 113.0) (maximum 114.0 120.0)))
+(test (zone 50 160) (list (resting 50 104.0) (warm-up 105.0 115.0) (fat-burning 116.0 126.0) (aerobic 127.0 137.0) (anaerobic 138.0 148.0) (maximum 149.0 160.0)))
+(test (zone 70 180) (list (resting 70 124.0) (warm-up 125.0 135.0) (fat-burning 136.0 146.0) (aerobic 147.0 157.0) (anaerobic 158.0 168.0) (maximum 169.0 180.0)))
+(test (zone 60 200) (list (resting 60 129.0) (warm-up 130.0 143.0) (fat-burning 144.0 157.0) (aerobic 158.0 171.0) (anaerobic 172.0 185.0) (maximum 186.0 200.0)))
 
 ; ========================================================================================
 ; ========================================================================================
@@ -63,12 +63,12 @@
 (define my-zone (zone 50 180))
 
 ;; test
-;(test (get-zone 'resting my-zone) (resting 50 114.0))
-;(test (get-zone 'warm-up my-zone) (warm-up 115.0 127.0))
-;(test(get-zone 'fat-burning my-zone) (fat-burning 128.0 140.0))
-;(test(get-zone 'aerobic my-zone) (aerobic 141.0 153.0))
-;(test (get-zone 'anaerobic my-zone) (anaerobic 154.0 166.0))
-;(test (get-zone 'maximum my-zone) (maximum 167.0 180.0))
+(test (get-zone 'resting my-zone) (resting 50 114.0))
+(test (get-zone 'warm-up my-zone) (warm-up 115.0 127.0))
+(test(get-zone 'fat-burning my-zone) (fat-burning 128.0 140.0))
+(test(get-zone 'aerobic my-zone) (aerobic 141.0 153.0))
+(test (get-zone 'anaerobic my-zone) (anaerobic 154.0 166.0))
+(test (get-zone 'maximum my-zone) (maximum 167.0 180.0))
 
 ; ========================================================================================
 ; ========================================================================================
@@ -90,11 +90,11 @@
             (append r w f ae an m (bmp->zone (cdr lfc) l-HRZ)))]))
       
 ;; test
-;(test (bmp->zone empty my-zone) '())
-;(test (bmp->zone '(50 60) my-zone) (list (resting 50 114.0) (resting 50 114.0)))
-;(test (bmp->zone '(140 141) my-zone) (list (fat-burning 128.0 140.0) (aerobic 141.0 153.0)))
-;(test (bmp->zone '(100 114 115) my-zone) (list (resting 50 114.0) (resting 50 114.0) (warm-up 115.0 127.0)))
-;(test (bmp->zone '(50 115 128 141 154 180) my-zone) (list (resting 50 114.0) (warm-up 115.0 127.0) (fat-burning 128.0 140.0) (aerobic 141.0 153.0) (anaerobic 154.0 166.0) (maximum 167.0 180.0)))
+(test (bmp->zone empty my-zone) '())
+(test (bmp->zone '(50 60) my-zone) (list (resting 50 114.0) (resting 50 114.0)))
+(test (bmp->zone '(140 141) my-zone) (list (fat-burning 128.0 140.0) (aerobic 141.0 153.0)))
+(test (bmp->zone '(100 114 115) my-zone) (list (resting 50 114.0) (resting 50 114.0) (warm-up 115.0 127.0)))
+(test (bmp->zone '(50 115 128 141 154 180) my-zone) (list (resting 50 114.0) (warm-up 115.0 127.0) (fat-burning 128.0 140.0) (aerobic 141.0 153.0) (anaerobic 154.0 166.0) (maximum 167.0 180.0)))
 
 ; ========================================================================================
 ; ========================================================================================
@@ -120,11 +120,11 @@
 (define rd4 (take raw-data 4))
 
 ;; test
-;(test (create-trackpoints empty my-zone) empty)
-;(test (create-trackpoints rd1 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654)))
-;(test (create-trackpoints rd2 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654) (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655)))
-;(test (create-trackpoints rd3 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654) (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658)))      
-;(test (create-trackpoints rd4 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654) (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658) (trackpoint (GPS 19.4907107 -99.2410833) 106 (resting 50 114.0) 1425619662))) 
+(test (create-trackpoints empty my-zone) empty)
+(test (create-trackpoints rd1 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654)))
+(test (create-trackpoints rd2 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654) (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655)))
+(test (create-trackpoints rd3 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654) (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658)))      
+(test (create-trackpoints rd4 my-zone) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654) (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658) (trackpoint (GPS 19.4907107 -99.2410833) 106 (resting 50 114.0) 1425619662))) 
 
 
 ; ========================================================================================
@@ -167,11 +167,11 @@
 (define tps (create-trackpoints raw-data my-zone))
 
 ;; test
-;(test (total-distance tp1) 0)
-;(test (total-distance tp2) 0.0)
-;(test (total-distance tp10) 0.048691066531181534)
-;(test (total-distance tp100) 0.8701430216465783)
-;(test (total-distance tps) 4.638691152686352)
+(test (total-distance tp1) 0)
+(test (total-distance tp2) 0.0)
+(test (total-distance tp10) 0.048691066531181534)
+(test (total-distance tp100) 0.8701430216465783)
+(test (total-distance tps) 4.638691152686352)
 
 ; ========================================================================================
 ; ========================================================================================
@@ -199,12 +199,12 @@
     [else (+ 1 (longLF (cdr l)))]))
 
 ;; test
-;(test (average-hr empty) 0)
-;(test (average-hr tp1) 104)
-;(test (average-hr tp5) 107)
-;(test (average-hr tp10) 111)
-;(test (average-hr tp100) 134)
-;(test (average-hr tps) 150)
+(test (average-hr empty) 0)
+(test (average-hr tp1) 104)
+(test (average-hr tp5) 107)
+(test (average-hr tp10) 111)
+(test (average-hr tp100) 134)
+(test (average-hr tps) 150)
 
 ; ========================================================================================
 ; ========================================================================================
@@ -224,13 +224,13 @@
     [else (if (< m (trackpoint-hr (car l))) (aux-max (cdr l) (trackpoint-hr (car l))) (aux-max (cdr l) m))]))
 
 ;; test
-;(test (max-hr empty) 0)
-;(test (max-hr tp1) 104)
-;(test (max-hr tp2) 104)
-;(test (max-hr tp5) 111)
-;(test (max-hr tp10) 120)
-;(test (max-hr tp100) 147)
-;(test (max-hr tps) 165)
+(test (max-hr empty) 0)
+(test (max-hr tp1) 104)
+(test (max-hr tp2) 104)
+(test (max-hr tp5) 111)
+(test (max-hr tp10) 120)
+(test (max-hr tp100) 147)
+(test (max-hr tps) 165)
 
 ; ========================================================================================
 ; ========================================================================================
@@ -253,11 +253,11 @@
                 (append (list (car l)) (collapse-trackpoint (cdr l) e))))]))
 
 ;; test
-;(test (collapse-trackpoint empty 0.01) empty)
-;(test (collapse-trackpoint tp1 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654)))
-;(test (collapse-trackpoint tp3 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658)))
-;(test (collapse-trackpoint tp4 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658) (trackpoint (GPS 19.4907107 -99.2410833) 106 (resting 50 114.0) 1425619662)))
-;(test (collapse-trackpoint tp10 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658) (trackpoint (GPS 19.4907107 -99.2410833) 106 (resting 50 114.0) 1425619662) (trackpoint (GPS 19.4907086 -99.2411981) 111 (resting 50 114.0) 1425619671) (trackpoint (GPS 19.4907059 -99.2412562) 112 (resting 50 114.0) 1425619675) (trackpoint (GPS 19.4906902 -99.2413796) 115 (warm-up 115.0 127.0) 1425619681) (trackpoint (GPS 19.4906865 -99.241445) 120 (warm-up 115.0 127.0) 1425619685) (trackpoint (GPS 19.4906861 -99.2415517) 119 (warm-up 115.0 127.0) 1425619690)))
+(test (collapse-trackpoint empty 0.01) empty)
+(test (collapse-trackpoint tp1 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619654)))
+(test (collapse-trackpoint tp3 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658)))
+(test (collapse-trackpoint tp4 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658) (trackpoint (GPS 19.4907107 -99.2410833) 106 (resting 50 114.0) 1425619662)))
+(test (collapse-trackpoint tp10 0.01) (list (trackpoint (GPS 19.4907258 -99.24101) 104 (resting 50 114.0) 1425619655) (trackpoint (GPS 19.4907258 -99.24101) 108 (resting 50 114.0) 1425619658) (trackpoint (GPS 19.4907107 -99.2410833) 106 (resting 50 114.0) 1425619662) (trackpoint (GPS 19.4907086 -99.2411981) 111 (resting 50 114.0) 1425619671) (trackpoint (GPS 19.4907059 -99.2412562) 112 (resting 50 114.0) 1425619675) (trackpoint (GPS 19.4906902 -99.2413796) 115 (warm-up 115.0 127.0) 1425619681) (trackpoint (GPS 19.4906865 -99.241445) 120 (warm-up 115.0 127.0) 1425619685) (trackpoint (GPS 19.4906861 -99.2415517) 119 (warm-up 115.0 127.0) 1425619690)))
 
 
 
@@ -274,6 +274,9 @@
 "F"
 (bns ebt "G" (bns (bns ebt "H" ebt) "I" ebt))))
 
+; ========================================================================================
+; ========================================================================================
+
 ;; Ejercicio 9
 ;; ninBT: BTree --> number
 ;; Dada un tipo de dato BTree, regresa el número de nodos internos
@@ -283,14 +286,13 @@
     [BNode (c l e r) (if (or (not (EmptyBT? l)) (not (EmptyBT? r)))
                          (+ 1 (ninBT l) (ninBT r))
                          (+ (ninBT l) (ninBT r)))]))
-    
 
 ;;test
-;(test (ninBT (EmptyBT)) 0)
-;(test (ninBT tree1) 1)
-;(test (ninBT tree2) 2)
-;(test (ninBT tree3) 3)
-;(test (ninBT (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 1 (BNode < (EmptyBT) 2 (EmptyBT)))) 1)
+(test (ninBT (EmptyBT)) 0)
+(test (ninBT tree1) 1)
+(test (ninBT tree2) 2)
+(test (ninBT tree3) 3)
+(test (ninBT (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 1 (BNode < (EmptyBT) 2 (EmptyBT)))) 1)
 
 
 
@@ -308,11 +310,11 @@
                          (+ (nlBT l) (nlBT r)))]))
 
 ;;test
-;(test (nlBT (EmptyBT)) 0)
-;(test (nlBT tree1) 2)
-;(test (nlBT tree2) 2)
-;(test (nlBT tree3) 3)
-;(test (nlBT (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 1 (BNode < (EmptyBT) 2 (EmptyBT)))) 2)
+(test (nlBT (EmptyBT)) 0)
+(test (nlBT tree1) 2)
+(test (nlBT tree2) 2)
+(test (nlBT tree3) 3)
+(test (nlBT (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 1 (BNode < (EmptyBT) 2 (EmptyBT)))) 2)
 
 ; ========================================================================================
 ; ========================================================================================
@@ -326,12 +328,12 @@
     [BNode (c l e r) (+ 1 (nnBT l) (nnBT r))]))
 
 ;;test
-;(test (nnBT (EmptyBT)) 0)
-;(test (nnBT tree1) 3)
-;(test (nnBT tree2) 4)
-;(test (nnBT tree3) 6)
-;(test (nnBT (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 1 (BNode < (EmptyBT) 2 (EmptyBT)))) 3)
-;(test (nnBT maxiarb) 17)
+(test (nnBT (EmptyBT)) 0)
+(test (nnBT tree1) 3)
+(test (nnBT tree2) 4)
+(test (nnBT tree3) 6)
+(test (nnBT (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 1 (BNode < (EmptyBT) 2 (EmptyBT)))) 3)
+(test (nnBT maxiarb) 17)
 
 ; ========================================================================================
 ; ========================================================================================
@@ -345,11 +347,11 @@
     [BNode (c l e r) (BNode c (mapBT p l) (p e) (mapBT p r))]))
 
 ;;test
-;(test (mapBT add1 (EmptyBT)) (EmptyBT))
-;(test (mapBT add1 tree1) (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 2 (BNode < (EmptyBT) 4 (EmptyBT))) )
-;(test (mapBT sub1 tree3) (BNode < (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 1 (EmptyBT)) 0 (BNode < (BNode < (EmptyBT) 4 (EmptyBT)) 2 (BNode < (EmptyBT) 5 (EmptyBT)))))
-;(test (mapBT (lambda (x) (* 2 x)) tree4) (BNode < (EmptyBT) 4 (BNode < (EmptyBT) 8 (EmptyBT))))
-;(test (mapBT (lambda (x) (* x x)) (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 1 (BNode < (EmptyBT) 2 (EmptyBT)))) (BNode < (BNode < (EmptyBT) 9 (EmptyBT)) 1 (BNode < (EmptyBT) 4 (EmptyBT))))
+(test (mapBT add1 (EmptyBT)) (EmptyBT))
+(test (mapBT add1 tree1) (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 2 (BNode < (EmptyBT) 4 (EmptyBT))) )
+(test (mapBT sub1 tree3) (BNode < (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 1 (EmptyBT)) 0 (BNode < (BNode < (EmptyBT) 4 (EmptyBT)) 2 (BNode < (EmptyBT) 5 (EmptyBT)))))
+(test (mapBT (lambda (x) (* 2 x)) tree4) (BNode < (EmptyBT) 4 (BNode < (EmptyBT) 8 (EmptyBT))))
+(test (mapBT (lambda (x) (* x x)) (BNode < (BNode < (EmptyBT) 3 (EmptyBT)) 1 (BNode < (EmptyBT) 2 (EmptyBT)))) (BNode < (BNode < (EmptyBT) 9 (EmptyBT)) 1 (BNode < (EmptyBT) 4 (EmptyBT))))
 
 ; ========================================================================================
 ; ========================================================================================
@@ -363,11 +365,11 @@
     [BNode (c l e r) (append (list e) (preorderBT l) (preorderBT r))]))
 
 ;; test
-;(test (preorderBT (EmptyBT)) '())
-;(test (preorderBT tree1) '(1 2 3))
-;(test (preorderBT tree2) '(1 2 4 3))
-;(test (preorderBT tree3) '(1 2 4 3 5 6)) 
-;(test (preorderBT arbol-base1) '("F" "B" "A" "D" "C" "E" "G" "I" "H"))
+(test (preorderBT (EmptyBT)) '())
+(test (preorderBT tree1) '(1 2 3))
+(test (preorderBT tree2) '(1 2 4 3))
+(test (preorderBT tree3) '(1 2 4 3 5 6)) 
+(test (preorderBT arbol-base1) '("F" "B" "A" "D" "C" "E" "G" "I" "H"))
 
 ; ========================================================================================
 ; ========================================================================================
@@ -381,11 +383,11 @@
     [BNode (c l e r) (append (inorderBT l) (list e) (inorderBT r))]))
 
 ;; test
-;(test (inorderBT (EmptyBT)) '())
-;(test (inorderBT tree1) '(2 1 3))
-;(test (inorderBT tree2) '(4 2 1 3))
-;(test (inorderBT tree3) '(4 2 1 5 3 6))
-;(test (inorderBT arbol-base1) '("A" "B" "C" "D" "E" "F" "G" "H" "I"))
+(test (inorderBT (EmptyBT)) '())
+(test (inorderBT tree1) '(2 1 3))
+(test (inorderBT tree2) '(4 2 1 3))
+(test (inorderBT tree3) '(4 2 1 5 3 6))
+(test (inorderBT arbol-base1) '("A" "B" "C" "D" "E" "F" "G" "H" "I"))
 
 ; ========================================================================================
 ; ========================================================================================
@@ -399,8 +401,8 @@
     [BNode (c l e r) (append (posorderBT l) (posorderBT r) (list e))]))
 
 ;; test
-;(test (posorderBT (EmptyBT)) '())
-;(test (posorderBT tree1) '(2 3 1))
-;(test (posorderBT tree2) '(4 2 3 1))
-;(test (posorderBT tree3) '(4 2 5 6 3 1))
-;(test (posorderBT arbol-base1) '("A" "C" "E" "D" "B" "H" "I" "G" "F"))
+(test (posorderBT (EmptyBT)) '())
+(test (posorderBT tree1) '(2 3 1))
+(test (posorderBT tree2) '(4 2 3 1))
+(test (posorderBT tree3) '(4 2 5 6 3 1))
+(test (posorderBT arbol-base1) '("A" "C" "E" "D" "B" "H" "I" "G" "F"))
