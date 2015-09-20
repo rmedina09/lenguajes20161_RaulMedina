@@ -113,11 +113,15 @@
                  [t (caar l)])
             (append (list (trackpoint (GPS gpslat gpslong) r z t)) (create-trackpoints (cdr l) l-HRZ)))]))
 
-;; define
+; ========================================================================================
+; ========================================================================================
+;; define listas del archivo raw-data.tcx
 (define rd1 (take raw-data 1))
 (define rd2 (take raw-data 2))
 (define rd3 (take raw-data 3))
 (define rd4 (take raw-data 4))
+; ========================================================================================
+; ========================================================================================
 
 ;; test
 (test (create-trackpoints empty my-zone) empty)
@@ -156,7 +160,10 @@
          [arcSenh (asin (sqrt h))])
     (* 2R arcSenh)))
 
-;;define
+; ========================================================================================
+; ========================================================================================
+
+;; define listas de trackpoints para las pruebas
 (define tp1 (create-trackpoints rd1 my-zone))
 (define tp2 (create-trackpoints rd2 my-zone))
 (define tp3 (create-trackpoints (take raw-data 3) my-zone))
@@ -165,6 +172,9 @@
 (define tp10 (create-trackpoints (take raw-data 10) my-zone))
 (define tp100 (create-trackpoints (take raw-data 100) my-zone))
 (define tps (create-trackpoints raw-data my-zone))
+
+; ========================================================================================
+; ========================================================================================
 
 ;; test
 (test (total-distance tp1) 0)
