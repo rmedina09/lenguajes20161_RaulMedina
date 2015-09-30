@@ -4,6 +4,12 @@
 
 ### Practica 1
 
-Buena practica, sigan asi.
+Buena practica, sigan así.
 
-**Calificacion: 10**
+**Calificación: 10**
+
+### Practica 2
+
+Muy buena practica, vas muy bien.
+
+**Calificación: 10**
