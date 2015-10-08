@@ -23,6 +23,13 @@
     [else (type-case Binding (car lbind)
             [bind (name val) (cons (desugar val) (list-value (cdr lbind)))])]))
 
+;; list-fae: listof-FAES --> listof-FAE
+;; Dada una lista de FAES regresa una lista de FAE
+(define (list-fae l)
+  (cond
+    [(empty? l) empty]
+    [else (cons (desugar (car l)) (list-fae (cdr l)))]))
+
 ;(define lbds (list (bind 'x (numS 3)) (bind 'y (numS 6))))
 ;(test (list-name lbds) '(x y))
 ;(test (list-value lbds) (list (numS 3) (numS 6)))
@@ -38,7 +45,7 @@
     [with*S (bindings body) (app (fun (list-name bindings) (desugar body)) (list-value bindings))]
     [idS (name) (id name)]
     [funS (params body) (fun params (desugar body))]
-    [appS (fun args) (app (desugar fun) (desugar args))]
+    [appS (fun args) (app (desugar fun) (list-fae args))]
     [binopS (f l r) (binop f (desugar l) (desugar r))]))
   
 ;;Test
@@ -82,8 +89,8 @@
     [app (fun args) (let* ([fun-val (interp fun env)]
                            [params-fun (closureV-param fun-val)]
                            [args-val (get-argsV args env)]
-                           [e (get-env params-fun args-val)])
-                      (interp (closureV-body fun-val) (e)))]
+                           [e (get-env (reverse params-fun) (reverse args-val) env)])
+                      (interp (closureV-body fun-val) e))]
     [binop (f l r) (binop-value f (interp l env) (interp r env))]))
 
   ;; Implementar interp
@@ -98,18 +105,24 @@
 
 ;(test (get-argsV (list (binop + (num 5) (num 5)) (num 7)) (mtSub)) (list (numV 10) (numV 7)))
 
-;; get-env: listof-symbol listof-FAE-Value --> Env
+;; get-env: listof-symbol listof-FAE-Value Env --> Env
 ;;
-(define (get-env pf argV) mtSub)
+(define (get-env pf argV e)
+  (cond
+    [(or (empty? pf) (empty? argV)) e]
+    [else (aSub (car pf) (car argV) (get-env (cdr pf) (cdr argV) e))]))
+
+;(test (get-env '(x y) (list (numV 10) (numV 7)) (mtSub)) (aSub 'x (numV 10) (aSub 'y (numV 7) (mtSub))))
+;(test (get-env '(x y) (list (numV 10) (numV 7)) (aSub 'z (numV 20) (mtSub))) (aSub 'x (numV 10) (aSub 'y (numV 7) (aSub 'z (numV 20) (mtSub)))))
 
 (define (rinterp expr)
   (interp expr (mtSub)))
 
-;(test (rinterp (cparse '{with {{x 5}} {+ x x}})) (numV 10))
 ;(test (rinterp (cparse '3)) (numV 3))
 ;(test (rinterp (cparse '{+ 3 4})) (numV 7))
 ;(test (rinterp (cparse '{+ {- 3 4} 7})) (numV 6))
-
+;(test (rinterp (cparse '{with {{x {+ 5 5}}} x})) (numV 10))
+;(test (rinterp (cparse '{with {{x 5}} {+ x x}})) (numV 10))
 ;(test (rinterp (cparse '{with {{x {+ 5 5}}} {with {{y {- x 3}}} {+ y y}}})) (numV 14))
 ;(test (rinterp (cparse '{with {{x 5} {y {- 5 3}}} {+ x y}})) (numV 7))
 ;(test (rinterp (cparse '{with {{x 5}} {+ x {with {{x 3}} 10}}})) (numV 15))
