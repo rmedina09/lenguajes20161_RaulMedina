@@ -30,10 +30,19 @@
     [(empty? l) empty]
     [else (cons (desugar (car l)) (list-fae (cdr l)))]))
 
-;(define lbds (list (bind 'x (numS 3)) (bind 'y (numS 6))))
+;; list-Value-App: listof-Binding-FAES --> listof-FAE-app
+;;
+(define (list-Value-App lb)
+  (cond
+    [(empty? lb) empty]
+    [else (type-case Binding (car lb)
+            [bind (name val) (cons (app (fun (list name) (id name)) (list (desugar val))) (list-Value-App (cdr lb)))])]))
+
+(define lbds (list (bind 'x (numS 3)) (bind 'y (numS 6))))
 ;(test (list-name lbds) '(x y))
 ;(test (list-value lbds) (list (numS 3) (numS 6)))
 ;(test (parse '{with {{x {+ 5 5}}} x}) (withS (list (bind 'x (binopS + (numS 5) (numS 5)))) (idS 'x)))
+
 
 ;====================================================================
 ;====================================================================
@@ -42,7 +51,7 @@
   (type-case FAES expr
     [numS (n) (num n)]
     [withS (bindings body) (app (fun (list-name bindings) (desugar body)) (list-value bindings))]
-    [with*S (bindings body) (app (fun (list-name bindings) (desugar body)) (list-value bindings))]
+    [with*S (bindings body) (app (fun (list-name bindings) (desugar body)) (list-Value-App bindings))]
     [idS (name) (id name)]
     [funS (params body) (fun params (desugar body))]
     [appS (fun args) (app (desugar fun) (list-fae args))]
@@ -75,7 +84,7 @@
 ;;
 (define (lookup var e)
   (type-case Env e
-    [mtSub () (error 'interp "free identifier")]
+    [mtSub () (error 'lookup "free identifier")]
     [aSub (name value env) (if (symbol=? var name)
                                value
                                (lookup var env))]))
@@ -118,6 +127,7 @@
 (define (rinterp expr)
   (interp expr (mtSub)))
 
+;(test/exn (rinterp (cparse '{{fun {x y} y} 3 {+ 2 x}})) "lookup: free identifier")
 ;(test (rinterp (cparse '3)) (numV 3))
 ;(test (rinterp (cparse '{+ 3 4})) (numV 7))
 ;(test (rinterp (cparse '{+ {- 3 4} 7})) (numV 6))
@@ -136,7 +146,7 @@
 ;(test (rinterp (cparse '{with {{x 10}} {{fun {y} {+ y x}} {+ 5 x}}})) (numV 25))
 ;(test (rinterp (cparse '{with {{x 1} {y 2} {z 3}} {+ {+ x y} z}})) (numV 6))
 ;(test (rinterp (cparse '{{fun {x y z} {+ {+ x y} z}} 1 2 3})) (numV 6))
-;(test (rinterp (cparse '{with* {{x 3} {y {+ 2 x}} {z {+ x y}}} z})) (numV 8))
+(test (rinterp (cparse '{with* {{x 3} {y {+ 2 x}} {z {+ x y}}} z})) (numV 8))
 ;(test (rinterp (cparse '{with* {{x 3} {y {+ 2 x}} {x 10} {z {+ x y}}} z})) (numV 15))
 ;(test/exn (rinterp (cparse '{with {{x 10} {x 20}} x})) "El id x está repetido")
 ;(test (rinterp (cparse '{with* {{x 10} {x 20}} x})) (numV 20))
