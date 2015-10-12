@@ -46,18 +46,26 @@
     [else (type-case Binding (car lb)
             [bind (name val) (if (symbol=? s name) val (get-value s (cdr lb)))])]))
 
+;; cut-list: listof-Binding symbol --> listof-Binding
+;;
+(define (cut-list lb s)
+  (cond
+    [(empty? lb) empty]
+    [else (type-case Binding (car lb)
+            [bind (n v) (if (symbol=? n s) lb (cut-list (cdr lb) s))])]))
+
 ;; list-Value-App: listof-Binding-FAES --> listof-FAE-app
 ;;
 (define (value-app fs lb)
   (type-case FAES fs
-            [idS (n) (app (fun (list n) (id n)) (list (value-app (get-value n lb) lb)))]
+            [idS (n) (app (fun (list n) (id n)) (list (value-app (get-value n (cut-list lb n)) (cut-list lb n))))]
             [binopS (f l r) (binop f (value-app l lb) (value-app r lb))]
             [else (desugar fs)]))
 
-(define (list-value-app lv lb)
+(define (list-value-app lv lb laux)
   (cond
     [(empty? lv) empty]
-    [else (cons (value-app (car lv) lb) (list-value-app (cdr lv) lb))]))
+    [else (cons (value-app (car lv) laux) (list-value-app (cdr lv) (cdr lb) (cons (car lb) laux)))]))
 
   
 
@@ -75,7 +83,7 @@
   (type-case FAES expr
     [numS (n) (num n)]
     [withS (bindings body) (app (fun (list-name bindings) (desugar body)) (list-value bindings))]
-    [with*S (bindings body) (app (fun (list-name bindings) (desugar body)) (list-value-app (lfae-value bindings) (reverse bindings)))]
+    [with*S (bindings body) (app (fun (list-name bindings) (desugar body)) (list-value-app (lfae-value bindings) bindings (list (car bindings))))]
     [idS (name) (id name)]
     [funS (params body) (fun params (desugar body))]
     [appS (fun args) (app (desugar fun) (list-fae args))]
@@ -87,7 +95,6 @@
 ;(test (desugar (parse '{+ 3 4})) (binop + (num 3) (num 4)))
 ;(test (desugar (parse '{+ {- 3 4} 7})) (binop + (binop - (num 3) (num 4)) (num 7)))
 ;(test (desugar (parse '{with {{x {+ 5 5}}} x})) (app (fun '(x) (id 'x)) (list (binop + (num 5) (num 5)))))
-;(test (desugar (parse '{with* {{x {+ 5 5}} {y 7}} {+ x y}})) (app (fun '(x y) (binop + (id 'x) (id 'y))) (list (binop + (num 5) (num 5)) (num 7))))
 
 ;=====================================================================================
 ;=====================================================================================
