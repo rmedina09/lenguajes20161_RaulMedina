@@ -98,10 +98,10 @@
     [binopS (f l r) (binop f (desugar l) (desugar r))]))
   
 ;;Test
-;(test (desugar (parse 3)) (num 3))
-;(test (desugar (parse '{+ 3 4})) (binop + (num 3) (num 4)))
-;(test (desugar (parse '{+ {- 3 4} 7})) (binop + (binop - (num 3) (num 4)) (num 7)))
-;(test (desugar (parse '{with {{x {+ 5 5}}} x})) (app (fun '(x) (id 'x)) (list (binop + (num 5) (num 5)))))
+(test (desugar (parse 3)) (num 3))
+(test (desugar (parse '{+ 3 4})) (binop + (num 3) (num 4)))
+(test (desugar (parse '{+ {- 3 4} 7})) (binop + (binop - (num 3) (num 4)) (num 7)))
+(test (desugar (parse '{with {{x {+ 5 5}}} x})) (app (fun '(x) (id 'x)) (list (binop + (num 5) (num 5)))))
 
 ;=====================================================================================
 ;=====================================================================================
