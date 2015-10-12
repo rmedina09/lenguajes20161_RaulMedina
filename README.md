@@ -1,3 +1,7 @@
 # Lenguajes de Programación 2016-1 
-##Nombre               E-mail                      No. Cuenta
-Raul Medina Peña       raulmp@ciencias.unam.mx     30019524-2
+##Nombre               
+Raul Medina Peña
+##E-mail                      
+raulmp@ciencias.unam.mx
+##No. Cuenta
+30019524-2
