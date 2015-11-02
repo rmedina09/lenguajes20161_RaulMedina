@@ -23,6 +23,16 @@ de total-distance es correcta pero regresas valores fuera de rango.
 
 ## Tareas
 
+### Tarea 1
+Problema I: Tu ejemplo no muestra claramente que no sea lineal usando stack,
+aparte que estas teniendo scope dinamico al tomar el primer 'x'.
+Tu solucion no resuelve mucho si tienes stacks por funcion en las cuales
+posiblemente tienes que buscar hasta el fondo del stack.
+Problema II: Muy bien.
+Problema III: Bien
+
+**Calificación: 9**
+
 ### Tarea 2
 
 Problema 1: FAE es equivalente a calculo lambda en el cual se pueden definir
