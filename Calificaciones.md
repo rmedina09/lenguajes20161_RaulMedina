@@ -21,6 +21,12 @@ de total-distance es correcta pero regresas valores fuera de rango.
 
 **Calificación: 10**
 
+### Practica 4
+
+Muy bien.
+
+**Calificación: 10**
+
 ## Tareas
 
 ### Tarea 1
