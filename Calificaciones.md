@@ -21,7 +21,23 @@ de total-distance es correcta pero regresas valores fuera de rango.
 
 **Calificación: 10**
 
+### Practica 4
+
+Muy bien.
+
+**Calificación: 10**
+
 ## Tareas
+
+### Tarea 1
+Problema I: Tu ejemplo no muestra claramente que no sea lineal usando stack,
+aparte que estas teniendo scope dinamico al tomar el primer 'x'.
+Tu solucion no resuelve mucho si tienes stacks por funcion en las cuales
+posiblemente tienes que buscar hasta el fondo del stack.
+Problema II: Muy bien.
+Problema III: Bien
+
+**Calificación: 9**
 
 ### Tarea 2
 
