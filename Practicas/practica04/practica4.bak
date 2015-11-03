@@ -2,7 +2,7 @@
 
 (require "practica4-base.rkt")
 
-(print-only-errors true)
+;(print-only-errors true)
 
 ;====================================================================
 ;Funciones Auxiliares
