@@ -27,6 +27,18 @@ Muy bien.
 
 **Calificación: 10**
 
+### Practica 5
+
+Muy bien.
+
+**Calificación: 0**
+
+### Practica 6
+
+Muy bien.
+
+**Calificación: 0**
+
 ## Tareas
 
 ### Tarea 1
@@ -55,3 +67,7 @@ regresa un error de que x no esta en el ambiente.
 Problema 4: Sin respuesta.
 
 **Calificación: 5**
+
+### Tarea 3
+
+**Calificación: 0**
